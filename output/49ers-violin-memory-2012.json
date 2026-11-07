@@ -1,0 +1,672 @@
+{
+  "contract": {
+    "sponsor": "Violin Memory, Inc.",
+    "rights_holder": "Forty Niners SC Stadium Company LLC",
+    "seasons": [
+      "Contract Year 1 through Contract Year 10 (ten Contract Years; first Contract Year begins March 1 of the year the Stadium is anticipated to open, currently 2014)"
+    ],
+    "term_start": "2012-06-13",
+    "term_end": null,
+    "territory": null,
+    "payments": [
+      {
+        "amount": 500000,
+        "due_date": null,
+        "redacted": false
+      },
+      {
+        "amount": 2000000,
+        "due_date": "2014-03-01",
+        "redacted": false
+      },
+      {
+        "amount": 2000000,
+        "due_date": "2014-09-01",
+        "redacted": false
+      }
+    ]
+  },
+  "deliverables": [
+    {
+      "section": "3(b)",
+      "category": "marks_designation",
+      "description": "Limited license during the Term to promote Sponsor as an official sponsor of the San Francisco 49ers and to use the Team Marks in advertising of goods and services in the Product and Services Category.",
+      "quantity": null,
+      "unit": null,
+      "frequency": null,
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "Subject to the terms and conditions of use in the Agreement",
+        "Sponsor must submit materials involving Team Marks at least 10 days before production; Team Companies may object",
+        "Use must follow Team Companies' specifications and guidelines"
+      ],
+      "sponsor_obligations": [
+        "Use Team Marks only per specifications and guidelines",
+        "Submit advertising/promotional materials 10 days before production"
+      ],
+      "proof_of_performance": null,
+      "source_quote": "Forty Niners SC grants to Sponsor a limited license during the Term to (a) advertise and promote the fact that Sponsor is an “official sponsor of the San Francisco 49ers,” (b) use, reproduce and display the Team Marks in connection with advertising and promotion of Sponsor’s goods and services in the Product and Services Category, and (c) promote Sponsor’s sponsorship"
+    },
+    {
+      "section": "4(a)",
+      "category": "exclusivity",
+      "description": "Exclusive sponsor rights within the Product and Services Category (flash data storage and/or video surveillance products) with respect to Forty Niners SC at the Stadium; Forty Niners SC will not enter a sponsorship with another party in the category. Sponsor may terminate with a pro rated refund if the Stadium naming rights go to a party in the category.",
+      "quantity": null,
+      "unit": null,
+      "frequency": null,
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "Except as otherwise provided in the Agreement",
+        "Forty Niners SC may sponsor with any party that enters a Stadium naming rights agreement with SCSA",
+        "Team may sign sponsors not known primarily or exclusively as suppliers in the category"
+      ],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "the rights granted to Sponsor herein are exclusive to Sponsor within the Product and Services Category with respect to Forty Niners SC at the Stadium."
+    },
+    {
+      "section": "Schedule 1, 1",
+      "category": "marks_designation",
+      "description": "Right to use the designation \"The Official Data Storage and Video Surveillance Provider of the San Francisco 49ers.\"",
+      "quantity": null,
+      "unit": null,
+      "frequency": "each Contract Year",
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "Sponsor will be permitted to use the designation of “The Official Data Storage and Video Surveillance Provider of the San Francisco 49ers.”"
+    },
+    {
+      "section": "Schedule 1, 2(a)",
+      "category": "signage",
+      "description": "Exclusive branding and entitlement at the Suite Tower Gate F, Suite Tower Plaza, Suite Tower Atrium, and the Executive Briefing Center, with a (redacted) credit from Forty Niners SC towards buildout of the Executive Briefing Center.",
+      "quantity": 4,
+      "unit": "branded areas",
+      "frequency": "each Contract Year",
+      "dollar_value": null,
+      "details_to_be_agreed": true,
+      "conditions": [
+        "Design, production and installation of signage and branding subject to mutual agreement of the Parties",
+        "All signage subject to SCSA approvals and construction/engineering alterations",
+        "Subject to No-Signage Events"
+      ],
+      "sponsor_obligations": [
+        "Pay for design, production and installation of signage, branding and entitlement (Section 5(e))",
+        "Pay for removal of signage if Sponsor terminates early"
+      ],
+      "proof_of_performance": null,
+      "source_quote": "Sponsor shall receive exclusive branding and entitlement at the Stadium at (i) a ticketed entryway for the suite tower guests (currently referred to as “Suite Tower Gate F”)"
+    },
+    {
+      "section": "Schedule 1, 2(b)",
+      "category": "signage",
+      "description": "Two exterior three-dimensional metal-lettered, translucent-face, LED-illuminated signs: the West Suite Tower Banner Sign (\"Violin Memory Tower\" or other agreed name) and the West Gate Entry Sign (\"Violin Memory Plaza\" or other agreed name).",
+      "quantity": 2,
+      "unit": "signs",
+      "frequency": "each Contract Year",
+      "dollar_value": null,
+      "details_to_be_agreed": true,
+      "conditions": [
+        "Name subject to mutual agreement",
+        "Subject to SCSA approvals and construction/engineering alterations",
+        "Subject to No-Signage Events"
+      ],
+      "sponsor_obligations": [
+        "Pay for design, production and installation of signage"
+      ],
+      "proof_of_performance": null,
+      "source_quote": "Sponsor shall be permitted to display outside the stadium a three-dimensional metal lettered sign with a translucent face, internally illuminated by LED"
+    },
+    {
+      "section": "Schedule 1, 2(c)",
+      "category": "scoreboard_led",
+      "description": "Prominent digital rotational signs above the north endzone (North Scoreboard Rotator) and south endzone (South Scoreboard Rotator), as one of ten founding partners, plus a bold channel-cut high-contrast fixed panel between the 40-yard lines on the west side (Suite Tower Fixed Bowl Signage), as one of ten founding partners.",
+      "quantity": 3,
+      "unit": "signs",
+      "frequency": "each Contract Year",
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "Rotational sign placement as determined by Forty Niners SC",
+        "One of ten founding partners",
+        "Subject to SCSA approvals and construction/engineering alterations",
+        "Subject to No-Signage Events"
+      ],
+      "sponsor_obligations": [
+        "Pay for design, production and installation of signage"
+      ],
+      "proof_of_performance": null,
+      "source_quote": "Sponsor shall be permitted to display in Stadium (i) a prominent digital rotational sign (one of ten founding partners), as determined by Forty Niners SC"
+    },
+    {
+      "section": "Schedule 1, 2(d)",
+      "category": "scoreboard_led",
+      "description": "A redacted number of :30 advertisements on the Stadium 360-degree LED ribbon at each home game, plus advertising in a mutually determined number of :30 units and one mutually determined co-branded feature on a redacted minimum number of HD monitors at each home game.",
+      "quantity": null,
+      "unit": ":30 advertisements",
+      "frequency": "each Forty Niners home game in the Stadium",
+      "dollar_value": null,
+      "details_to_be_agreed": true,
+      "conditions": [
+        "Number of :30 units on monitors and co-branded feature mutually determined",
+        "Subject to NFL rules restricting signage visibility during national telecasts"
+      ],
+      "sponsor_obligations": [
+        "Pay for production of advertising materials"
+      ],
+      "proof_of_performance": null,
+      "source_quote": "Sponsor shall also receive (i) advertising in a mutually-determined number of thirty-"
+    },
+    {
+      "section": "Schedule 1, 3(a)",
+      "category": "activation",
+      "description": "Booth space for an interactive showcase in the pre-game fan activity area (the \"Faithful Mile\").",
+      "quantity": 1,
+      "unit": "booth",
+      "frequency": "each home game",
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [],
+      "sponsor_obligations": [
+        "Bear costs of build-out and materials for booth (Section 5(e))"
+      ],
+      "proof_of_performance": null,
+      "source_quote": "Sponsor shall receive booth space for an interactive showcase in an area for pre-game fan activity (currently referred to as the “Faithful Mile”) at each home game."
+    },
+    {
+      "section": "Schedule 1, 3(b)",
+      "category": "activation",
+      "description": "Presenting sponsorship of an in-game fan promotion (e.g., \"early fan of the game\" receiving a food and beverage coupon, featured on the scoreboard).",
+      "quantity": 1,
+      "unit": "promotion",
+      "frequency": "each home game each Contract Year",
+      "dollar_value": null,
+      "details_to_be_agreed": true,
+      "conditions": [
+        "Promotion to be agreed between Sponsor and Forty Niners SC"
+      ],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "Sponsor and Forty Niners SC shall agree on a presenting sponsorship of a promotion for each home game each Contract Year"
+    },
+    {
+      "section": "Schedule 1, 3(c)",
+      "category": "scoreboard_led",
+      "description": "Presenting sponsorship of a fan-engagement or football action scoreboard feature (e.g., instant replays or \"make noise\" messages).",
+      "quantity": 1,
+      "unit": "scoreboard feature",
+      "frequency": "each home game",
+      "dollar_value": null,
+      "details_to_be_agreed": true,
+      "conditions": [
+        "Feature to be agreed between Sponsor and Forty Niners SC"
+      ],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "Sponsor and Forty Niners SC shall agree on a presenting sponsorship of a fan-engagement or football action scoreboard feature"
+    },
+    {
+      "section": "Schedule 1, 3(d)",
+      "category": "activation",
+      "description": "Sponsor is named \"presenting sponsor\" of one regular season home game, with a similar theme or calendar timing each Contract Year (e.g., Veteran's Day).",
+      "quantity": 1,
+      "unit": "regular season home game",
+      "frequency": "each Contract Year",
+      "dollar_value": null,
+      "details_to_be_agreed": true,
+      "conditions": [],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "Sponsor shall be named the “presenting sponsor” of a regular season home game"
+    },
+    {
+      "section": "Schedule 1, 4(a)(i)",
+      "category": "broadcast",
+      "description": "Sponsor advertising played during all team-controlled television broadcasts of Forty Niners preseason games (amount redacted).",
+      "quantity": null,
+      "unit": null,
+      "frequency": "all team-controlled preseason television broadcasts",
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "Subject to annual review by the Parties based on then-existing media and Sponsor needs"
+      ],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "*** shall be played during all team-controlled television broadcast of Forty Niners preseason games."
+    },
+    {
+      "section": "Schedule 1, 4(a)(ii)",
+      "category": "broadcast",
+      "description": "Sponsor advertising played in each Total Access episode per season, including playoffs and re-airs, with a minimum of twenty episodes.",
+      "quantity": 20,
+      "unit": "episodes (minimum)",
+      "frequency": "per season",
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "Subject to annual review by the Parties based on then-existing media and Sponsor needs"
+      ],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "*** shall be played in each Total Access episode per season, including during playoffs and re-airs. There shall be a minimum of twenty (20) episodes."
+    },
+    {
+      "section": "Schedule 1, 4(a)(iii)",
+      "category": "broadcast",
+      "description": "Sponsor advertising played in each Postgame Live (or similar postgame show) per season, including playoffs and re-airs, with a redacted minimum number of episodes.",
+      "quantity": null,
+      "unit": "episodes",
+      "frequency": "per season",
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "Subject to annual review by the Parties based on then-existing media and Sponsor needs"
+      ],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "*** shall be played in each Postgame Live (or similar postgame show) per season, including during playoffs and re-airs."
+    },
+    {
+      "section": "Schedule 1, 4(a)(iv)",
+      "category": "broadcast",
+      "description": "Sponsor advertising played in each \"Press Pass\" or similar television show episode per season, including re-airs, with a redacted minimum number of episodes.",
+      "quantity": null,
+      "unit": "episodes",
+      "frequency": "per season",
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "Subject to annual review by the Parties based on then-existing media and Sponsor needs"
+      ],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "*** shall be played in each “Press Pass” or similar television show episode per season, including re-airs."
+    },
+    {
+      "section": "Schedule 1, 4(b)",
+      "category": "broadcast",
+      "description": "Sponsor commercials and name entitlements on Team preseason and regular season radio programming: 49ers Insider/shoulder programming, pre-game and game broadcasts, a sponsored segment (e.g., game time and temperature), local station and affiliate network, and each game on the Spanish radio network. Quantities redacted.",
+      "quantity": null,
+      "unit": "commercials",
+      "frequency": "preseason and regular season",
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "Subject to annual review by the Parties based on then-existing media and Sponsor needs"
+      ],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "The following Sponsor commercials shall be played on Team’s preseason and regular season radio programming:"
+    },
+    {
+      "section": "Schedule 1, 4(c)(i)",
+      "category": "print",
+      "description": "Redacted advertising unit in each issue of the Gameday magazine (or similar program), a minimum of ten programs per season including playoffs.",
+      "quantity": 10,
+      "unit": "programs (minimum)",
+      "frequency": "per season",
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "Subject to annual review by the Parties based on then-existing media and Sponsor needs"
+      ],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "*** in each issue of the Gameday magazine (or similar program), a minimum of ten such programs per season, including playoffs;"
+    },
+    {
+      "section": "Schedule 1, 4(c)(ii)-(iii)",
+      "category": "print",
+      "description": "Redacted advertising placement in the annual Forty Niner Yearbook and in the season ticket holder guide/handbook.",
+      "quantity": null,
+      "unit": null,
+      "frequency": "annual",
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "Subject to annual review by the Parties based on then-existing media and Sponsor needs"
+      ],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "*** in the annual Forty Niner Yearbook;"
+    },
+    {
+      "section": "Schedule 1, 4(c)(iv)",
+      "category": "tickets",
+      "description": "Sponsor's logo appears on the front of the game ticket for the regular season home game for which Sponsor is presenting sponsor.",
+      "quantity": 1,
+      "unit": "game ticket design",
+      "frequency": "each Contract Year",
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "Subject to annual review by the Parties based on then-existing media and Sponsor needs"
+      ],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "Sponsor’s logo will appear on the front of the game ticket associated with the aforementioned presenting sponsorship of one (1) regular season home game."
+    },
+    {
+      "section": "Schedule 1, 4(d)",
+      "category": "digital",
+      "description": "Annual package of advertising and sponsored content on the Team's website, emails and social media, developed jointly.",
+      "quantity": 1,
+      "unit": "package",
+      "frequency": "each year",
+      "dollar_value": null,
+      "details_to_be_agreed": true,
+      "conditions": [
+        "Subject to annual review by the Parties based on then-existing media and Sponsor needs"
+      ],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "Sponsor and Forty Niners SC shall develop each year a package of advertising and sponsored content on the Team’s website, emails and social media"
+    },
+    {
+      "section": "Schedule 1, 5(a)",
+      "category": "hospitality",
+      "description": "Admission tickets to a (redacted) luxury suite in the west suite tower with access to the \"Champions\" and \"Broadcast\" clubs for preseason and regular season home games, with VIP parking passes and a season-long food and beverage credit; option to purchase the suite for the postseason at prevailing prices.",
+      "quantity": null,
+      "unit": "suite tickets",
+      "frequency": "each preseason and regular season home game at the Stadium",
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "Subject to execution of the standard executive suite license agreement with Forty Niners SC",
+        "Postseason purchase subject to availability at prevailing prices"
+      ],
+      "sponsor_obligations": [
+        "Execute Suite License Agreement",
+        "Pay prevailing prices for postseason suite"
+      ],
+      "proof_of_performance": null,
+      "source_quote": "Subject to execution of the standard executive suite license agreement with Forty Niners SC (“Suite License Agreement”), Sponsor will receive admission tickets to *** located in the suite tower on the Stadium’s west side"
+    },
+    {
+      "section": "Schedule 1, 5(b)",
+      "category": "tickets",
+      "description": "Seating package for preseason and regular season home games at the Stadium: seats with West Legacy Club access, seats on the 100 level with Champions and Broadcast club access, and seats on the 200 level with Loft club access (quantities redacted); option to purchase the same package for the postseason at prevailing prices.",
+      "quantity": null,
+      "unit": "seats",
+      "frequency": "each preseason and regular season home game at the Stadium",
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "Postseason purchase subject to availability at prevailing prices"
+      ],
+      "sponsor_obligations": [
+        "Pay prevailing prices for postseason seating"
+      ],
+      "proof_of_performance": null,
+      "source_quote": "Sponsor shall receive the following seating package for Forty Niners preseason and regular season home games played at the Stadium."
+    },
+    {
+      "section": "Schedule 1, 5(c)",
+      "category": "hospitality",
+      "description": "Inclusion (redacted amount) on a road game trip or similar event such as the Pro Bowl.",
+      "quantity": null,
+      "unit": null,
+      "frequency": "annual",
+      "dollar_value": null,
+      "details_to_be_agreed": true,
+      "conditions": [
+        "Particular game mutually agreed annually",
+        "As available"
+      ],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "Forty Niners SC shall include *** on a road game trip (particular game to be mutually agreed upon on an annual basis) or a similar event, as available."
+    },
+    {
+      "section": "Schedule 1, 5(c) (Super Bowl)",
+      "category": "tickets",
+      "description": "Super Bowl inclusion (redacted); if the Team participates, Sponsor may bring a redacted number of guests; Forty Niners SC to make reasonable efforts to make additional Super Bowl tickets available for purchase.",
+      "quantity": null,
+      "unit": "tickets",
+      "frequency": null,
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "Additional tickets subject to availability",
+        "Tickets solely for use of Sponsor and its guests"
+      ],
+      "sponsor_obligations": [
+        "Not solicit or accept payment or income from any person for use of the tickets",
+        "Pay for additional tickets purchased"
+      ],
+      "proof_of_performance": null,
+      "source_quote": "Forty Niners SC shall make reasonable efforts to make available additional Super Bowl tickets for purchase, based on"
+    },
+    {
+      "section": "Schedule 1, 5(d)",
+      "category": "tickets",
+      "description": "Commercially reasonable efforts to make tickets available for purchase as requested to non-NFL events at the Stadium.",
+      "quantity": null,
+      "unit": "tickets",
+      "frequency": null,
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "Commercially reasonable efforts only",
+        "Subject to purchase by Sponsor"
+      ],
+      "sponsor_obligations": [
+        "Purchase the tickets"
+      ],
+      "proof_of_performance": null,
+      "source_quote": "Forty Niners SC shall make commercially reasonable efforts to make tickets available for purchase as requested to non-NFL events at Stadium."
+    },
+    {
+      "section": "Schedule 1, 6(a)",
+      "category": "digital",
+      "description": "Annual list of team clients (season ticket holders, suite holders and fans) and permission for Sponsor to direct market to the list(s), with terms redacted.",
+      "quantity": 1,
+      "unit": "list",
+      "frequency": "annually",
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "Forty Niners SC shall provide on annual basis a list of team clients, including season ticket holders, suite holders and fans, and shall permit Sponsor to direct market to such list(s) ***."
+    },
+    {
+      "section": "Schedule 1, 6(b)",
+      "category": "hospitality",
+      "description": "Right to host a redacted number of corporate events at the Team's training facility and at the Stadium, with food and beverage credit, staffing credits and a guest gift, dependent on number of events held.",
+      "quantity": null,
+      "unit": "events",
+      "frequency": null,
+      "dollar_value": null,
+      "details_to_be_agreed": true,
+      "conditions": [
+        "Food and beverage and staffing credits mutually determined and dependent on number of events held"
+      ],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "Right to host at least *** at the Team’s training facility and *** at the Stadium"
+    },
+    {
+      "section": "Schedule 1, 6(c)",
+      "category": "hospitality",
+      "description": "VIP invitations to team marketing events (Draft party, training camp), a foursome invitation to an annual golf or sponsor appreciation event, and display booth opportunity at the Draft party, Fan Fest and one day of training camp.",
+      "quantity": null,
+      "unit": "invitations",
+      "frequency": "throughout the year",
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "Sponsor shall receive VIP invitations to marketing events throughout the year, including, annual Draft party and training camp."
+    },
+    {
+      "section": "Schedule 1, 6(d)(i)",
+      "category": "activation",
+      "description": "Head Coach appearance scheduled by Forty Niners SC (quantity redacted) at a time reasonably convenient for the Head Coach.",
+      "quantity": null,
+      "unit": "appearances",
+      "frequency": null,
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "At a time reasonably convenient for the Head Coach"
+      ],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "Forty Niners SC shall schedule *** at a time that is reasonably convenient for the Head Coach."
+    },
+    {
+      "section": "Schedule 1, 6(d)(ii)",
+      "category": "activation",
+      "description": "Forty Niners SC assists Sponsor in securing current player appearances (amount redacted).",
+      "quantity": null,
+      "unit": "appearances",
+      "frequency": null,
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "Assistance only"
+      ],
+      "sponsor_obligations": [
+        "Pay active players directly for appearances"
+      ],
+      "proof_of_performance": null,
+      "source_quote": "Forty Niners SC shall assist Sponsor in securing ***. Sponsors shall pay active players directly for such appearances."
+    },
+    {
+      "section": "Schedule 1, 6(d)(iii)",
+      "category": "activation",
+      "description": "Alumni player appearances for Sponsor (number redacted).",
+      "quantity": null,
+      "unit": "appearances",
+      "frequency": "per year",
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "Forty Niners SC shall *** alumni player appearances per year for Sponsor."
+    },
+    {
+      "section": "Schedule 1, 6(d)(iv)",
+      "category": "activation",
+      "description": "Gold Rush cheerleader appearances at Sponsor events (number redacted).",
+      "quantity": null,
+      "unit": "appearances",
+      "frequency": null,
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "Upon reasonable, advance request"
+      ],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "Forty Niners SC shall schedule *** Gold Rush cheerleading appearances upon reasonable, advance request for Sponsor events."
+    },
+    {
+      "section": "Schedule 1, 6(d)(v)",
+      "category": "activation",
+      "description": "Team mascot appearances at Sponsor events (number redacted).",
+      "quantity": null,
+      "unit": "appearances",
+      "frequency": null,
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "Upon reasonable, advance request"
+      ],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "Forty Niners SC shall schedule *** Team mascot appearances upon reasonable, advance request for Sponsor events."
+    },
+    {
+      "section": "Schedule 1, 6(d)(vi)",
+      "category": "activation",
+      "description": "Niner Noise appearances at Sponsor events (number redacted).",
+      "quantity": null,
+      "unit": "appearances",
+      "frequency": null,
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "Upon reasonable, advance request"
+      ],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "Forty Niners SC shall schedule *** Niner Noise appearances upon reasonable, advance request for Sponsor events."
+    },
+    {
+      "section": "Schedule 1, 6(e)",
+      "category": "other",
+      "description": "Credit (amount redacted, measured at retail) of San Francisco 49ers merchandise available on request through shop49ers.com or a successor team-affiliated retailer.",
+      "quantity": null,
+      "unit": "merchandise credit",
+      "frequency": null,
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "Provided upon request",
+        "Fulfilled by Forty Niners SC"
+      ],
+      "sponsor_obligations": [
+        "Send requests to Forty Niners SC for fulfillment"
+      ],
+      "proof_of_performance": null,
+      "source_quote": "Sponsor shall receive ***, worth, measured at retail price, of San Francisco 49ers merchandise upon request."
+    },
+    {
+      "section": "Schedule 1, 6(f)",
+      "category": "other",
+      "description": "Autographed memorabilia signed by active roster players (amount redacted); reasonable efforts to accommodate requests for specific players.",
+      "quantity": null,
+      "unit": "items",
+      "frequency": null,
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "Signed by players on the Team's active roster",
+        "Reasonable efforts to accommodate requests for specific players"
+      ],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "Such autographs shall be signed by players who are members of the Team’s active roster and Forty Niners SC shall make reasonable efforts to accommodate Sponsor’s requests for specific players."
+    },
+    {
+      "section": "Schedule 1, 7",
+      "category": "activation",
+      "description": "Presenting or integrative sponsorship of a community program, a foundation event, and a youth football event (quantities redacted).",
+      "quantity": null,
+      "unit": "sponsorships",
+      "frequency": null,
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "Sponsor will receive a presenting or integrative sponsorship of *** community program (by way of"
+    },
+    {
+      "section": "7(c)",
+      "category": "other",
+      "description": "If the Stadium opens in 2014 but four or more regular 2014 season home games are played outside the Stadium, Sponsor receives all benefits for those games plus \"make good benefits\" for the value of Sponsorship Rights not provided.",
+      "quantity": null,
+      "unit": null,
+      "frequency": null,
+      "dollar_value": null,
+      "details_to_be_agreed": true,
+      "conditions": [
+        "Applies only if Stadium opens late in 2014 with four or more home games played elsewhere",
+        "Make good benefits to be determined by the Parties, or by arbitration if they cannot agree"
+      ],
+      "sponsor_obligations": [],
+      "proof_of_performance": null,
+      "source_quote": "Sponsor shall be entitled to receive “make good benefits” for the value of benefits to be provided as part of the Sponsorship Rights that are not provided (the “Lost Sponsorship Benefits”)."
+    }
+  ]
+}

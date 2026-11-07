@@ -8,7 +8,7 @@
     ],
     "term_start": null,
     "term_end": null,
-    "territory": "Mets Home Television Territory (State of New York, State of Connecticut, State of New Jersey except certain counties, and specified counties in Pennsylvania, per Exhibit B)",
+    "territory": "Mets Home Television Territory (State of New York, State of Connecticut, State of New Jersey except certain counties, and specified counties in Pennsylvania), as established and amended from time to time",
     "payments": [
       {
         "amount": null,
@@ -49,7 +49,7 @@
       "description": "Right to advertise AlphaTrade's online investment management services during Mets home games on two permanent 4' by 38' signs on the press level facade at Shea Stadium, one in right field and one in left field, next to the Pitch Speed LED Scoreboards.",
       "quantity": 2,
       "unit": "signs",
-      "frequency": "each Mets home game, each season",
+      "frequency": "each home game, each season",
       "dollar_value": null,
       "details_to_be_agreed": false,
       "conditions": [],
@@ -62,10 +62,10 @@
     {
       "section": "2",
       "category": "scoreboard_led",
-      "description": "Right to display customized AlphaTrade-provided messages promoting its online investment management services, scrolling on the Pitch Speed LED Scoreboards during inning breaks of Mets regular home games.",
+      "description": "Right to display customized AlphaTrade messages promoting its online investment management services, scrolling on the Pitch Speed LED Scoreboards during inning breaks of Mets regular home games.",
       "quantity": null,
       "unit": null,
-      "frequency": "during inning breaks, each Mets regular home game",
+      "frequency": "during inning breaks of each Mets regular home game",
       "dollar_value": null,
       "details_to_be_agreed": false,
       "conditions": [],
@@ -73,21 +73,21 @@
         "Provide the customized messages"
       ],
       "proof_of_performance": null,
-      "source_quote": "The right to display customized messages, provided by AlphaTrade, promoting AlphaTrade’s online investment management services, which will scroll on the Pitch Speed LED Scoreboards during inning breaks during Mets regular\nhome games."
+      "source_quote": "The right to display customized messages, provided by AlphaTrade, promoting AlphaTrade’s online investment\nmanagement services, which will scroll on the Pitch Speed LED Scoreboards during inning breaks during Mets regular\nhome games."
     },
     {
       "section": "3",
       "category": "pa_announcement",
-      "description": "One 15-second PA announcement per home game promoting either AlphaTrade's services or its sponsorship of an in-stadium text messaging contest (TMC), made on or before the bottom of the fifth inning, with AlphaTrade's logo displayed on the Stadium scoreboard during the announcement. TMC winners receive two Mets home game tickets provided by Sterling or a mutually agreed prize; AlphaTrade may award an additional mutually agreed grand prize and will be announced as its provider.",
+      "description": "One 15-second Stadium PA announcement per home game promoting either AlphaTrade's services or its sponsorship of an in-stadium text messaging contest (TMC), made on or before the bottom of the fifth inning, with AlphaTrade's logo displayed on the Stadium scoreboard during the announcement. TMC winners receive two tickets to a Mets home game provided by Sterling or a mutually agreed prize; AlphaTrade may award an additional mutually agreed grand prize and will be announced as its provider.",
       "quantity": 1,
-      "unit": "15-second announcement",
+      "unit": "15-second announcements",
       "frequency": "each Mets home game",
       "dollar_value": null,
       "details_to_be_agreed": true,
       "conditions": [
         "TMC subject to prior approval of MLBAM",
         "TMC announcement made on or before the bottom of the fifth inning",
-        "Prize (if not tickets) mutually agreed by AlphaTrade and Sterling in advance of the TMC",
+        "TMC prize (if not tickets) to be mutually agreed in advance of the TMC",
         "Grand prize to be mutually agreed by the parties"
       ],
       "sponsor_obligations": [],
@@ -97,7 +97,7 @@
     {
       "section": "4",
       "category": "broadcast",
-      "description": "Advertising inventory valued at $50,000 per season (based on applicable rate card) during Mets and/or other programming on SportsNet New York.",
+      "description": "Advertising inventory valued at $50,000 per season, based on the applicable rate card, during Mets and/or other programming on SportsNet New York.",
       "quantity": null,
       "unit": null,
       "frequency": "each season during the Term",
@@ -114,20 +114,20 @@
     {
       "section": "5",
       "category": "digital",
-      "description": "Sponsorship of a mutually agreed sweepstakes or TMC on mets.com, promoted in rotating banner ads posted by MLBAM for the duration of the Sweepstakes (approx. 6 to 8 weeks) and in one promotional email distributed by MLBAM. Sterling provides the prize(s); official rules provided by MLBAM or Sterling.",
+      "description": "Sponsorship of a mutually agreed sweepstakes or TMC on mets.com, promoted in rotating banner ads posted by MLBAM for the Sweepstakes Period (approx. 6 to 8 weeks) and in one promotional email distributed by MLBAM. Sterling provides the prize(s); official rules provided by MLBAM or Sterling, subject to AlphaTrade's reasonable approval; subject to Exhibit A terms.",
       "quantity": 1,
       "unit": "promotional email",
-      "frequency": "during the Sweepstakes Period",
+      "frequency": "during the Sweepstakes Period (approximately 6 to 8 weeks)",
       "dollar_value": null,
       "details_to_be_agreed": true,
       "conditions": [
-        "Subject to terms and conditions in Exhibit A",
         "Sweepstakes, banner advertisements and promotional email subject to prior approval of MLBAM",
+        "Subject to terms and conditions in Exhibit A",
         "Official rules subject to reasonable approval of AlphaTrade",
-        "Sweepstakes prize(s) mutually agreed between the parties"
+        "Prize(s) mutually agreed between the parties"
       ],
       "sponsor_obligations": [
-        "Per Exhibit A, solely responsible and liable for all aspects of the Sweepstakes including administration, fulfillment and legal compliance"
+        "Solely responsible and liable for all aspects of the Sweepstakes including administration, fulfillment and legal compliance (Exhibit A)"
       ],
       "proof_of_performance": null,
       "source_quote": "Sponsorship by AlphaTrade of a mutually agreed upon sweepstakes or TMC (collectively referred to herein as\nthe “Sweepstakes”) to be featured on the official New York Mets website (www.mets.com) (the “Website”), subject to the\nterms and conditions set forth in Exhibit A hereto. The Sweepstakes and AlphaTrade’s sponsorship thereof shall be\npromoted in rotating banner advertisements on the Website that will be posted by MLBAM for the duration of the\nSweepstakes (approximately 6 to 8 weeks) (the “Sweepstakes Period”), and in one promotional email distributed by\nMLBAM during the Sweepstakes Period. The Sweepstakes, banner advertisements and promotional email are subject to\nthe prior approval of MLBAM. The official rules of the Sweepstakes shall be provided by MLBAM or Sterling, subject to\nthe reasonable approval of AlphaTrade. The Sweepstakes prize(s) will be provided by Sterling and mutually agreed to\nbetween the parties."
@@ -135,15 +135,15 @@
     {
       "section": "6",
       "category": "tickets",
-      "description": "Four field level tickets to each Mets regular season home game at the Stadium, plus the right to purchase the same seats for any Mets post season games at the Stadium, limited to the Term and not subject to renewal.",
+      "description": "Four field level tickets to each Mets regular season home game at the Stadium, plus the right to purchase the same seats for any Mets post season games at the Stadium during the Term; not subject to renewal.",
       "quantity": 4,
       "unit": "tickets",
       "frequency": "each Mets regular season home game",
       "dollar_value": null,
       "details_to_be_agreed": false,
       "conditions": [
-        "Post season seats available for purchase only",
-        "Rights limited to the Term and not subject to renewal"
+        "Rights limited to the Term and not subject to renewal",
+        "Post season seats available for purchase only"
       ],
       "sponsor_obligations": [
         "Purchase post season tickets if desired"
@@ -157,7 +157,7 @@
       "description": "Use of one 15-person Diamond View Suite, including food and beverages for 15 guests, on two mutually agreed Mets regular season home game dates.",
       "quantity": 2,
       "unit": "suite games",
-      "frequency": "per season, on mutually agreed dates",
+      "frequency": "per season (two mutually agreed regular season home game dates)",
       "dollar_value": null,
       "details_to_be_agreed": true,
       "conditions": [
@@ -172,10 +172,10 @@
     {
       "section": "8",
       "category": "print",
-      "description": "Right to advertise AlphaTrade's services in one full page, four-color print advertisement in the annual New York Mets Yearbook.",
+      "description": "Right to advertise AlphaTrade's online investment management services in one full page, four-color print advertisement in the annual New York Mets Yearbook.",
       "quantity": 1,
-      "unit": "full-page four-color ad",
-      "frequency": "annually",
+      "unit": "full-page four-color ads",
+      "frequency": "annual (Mets Yearbook)",
       "dollar_value": null,
       "details_to_be_agreed": false,
       "conditions": [],
@@ -194,9 +194,9 @@
       "details_to_be_agreed": true,
       "conditions": [
         "Date mutually agreed",
-        "Up to 40 participants",
         "Spectators limited to as many as BBC allows for similar events",
-        "Releases of liability in form acceptable to Sterling in its sole discretion"
+        "Up to 40 participants",
+        "Releases must be in a form acceptable to Sterling in its sole discretion"
       ],
       "sponsor_obligations": [
         "Secure releases of liability in favor of Sterling and Brooklyn Baseball Company, L.L.C. from each individual permitted to enter the field"
@@ -221,7 +221,7 @@
     {
       "section": "11",
       "category": "marks_designation",
-      "description": "Right to use the designation \"Official Sponsor of the New York Mets\" to promote AlphaTrade's services, non-exclusive use of the Mets name, limited to the Term and the Mets Home Television Territory.",
+      "description": "Right to use the designation \"Official Sponsor of the New York Mets\" to promote AlphaTrade's online investment management services, non-exclusive, limited to the Term and the Mets Home Television Territory, subject to MLB rules and Sterling's prior written approval of materials containing the Mets name.",
       "quantity": null,
       "unit": null,
       "frequency": null,
@@ -229,30 +229,30 @@
       "details_to_be_agreed": false,
       "conditions": [
         "Limited to the Term and the Mets Home Television Territory, as may be amended",
-        "Use of Mets name is non-exclusive and subject to MLB Entities' rules, regulations, agreements or guidelines",
+        "Use of Mets name is non-exclusive and subject to rules, regulations, agreements or guidelines of the MLB Entities",
         "All materials containing the Mets name require Sterling's prior written approval, in its reasonable discretion",
         "No rights in Sterling's trademarks except as expressly granted"
       ],
       "sponsor_obligations": [
-        "Indemnify, hold harmless and defend Sterling against claims arising out of use of the Mets name"
+        "Submit all materials containing the Mets name to Sterling for prior written approval",
+        "Indemnify, hold harmless and defend Sterling for claims arising from use of the Mets name"
       ],
       "proof_of_performance": null,
-      "source_quote": "The right for AlphaTrade to use the designation “Official Sponsor of the New York Mets” to promote\nAlphaTrade’s online investment management services, subject to the conditions set forth below."
+      "source_quote": "The right for AlphaTrade to use the designation “Official Sponsor of the New York Mets” to promote\nAlphaTrade’s online investment management services, subject to the conditions set forth below.\n(a) Such right is specifically limited to the Term and to the Mets Home Television Territory, as may be amended.\nThe current Home Television Territory is shown on Exhibit B (see attached).\n(b) Use of the Mets name is non-exclusive and shall be subject to any rules, regulations, agreements, or guidelines\nof the MLB Entities (as defined herein), as may be amended.\n(c) All materials containing the Mets name must be submitted to Sterling for its prior written approval, in its\nreasonable discretion."
     },
     {
       "section": "12",
-      "category": "digital",
-      "description": "Joint public announcement by both parties within three days of execution of the official sponsor agreement, further announcements as agreed, and the right for AlphaTrade to use a boilerplate official sponsor statement (Exhibit C) in its public news announcements distributed only within the Mets Home Television Territory.",
+      "category": "other",
+      "description": "Joint public announcement by both parties within three days of execution of the Agreement confirming AlphaTrade's official sponsor status; further announcements as agreed; AlphaTrade may use a boilerplate official sponsor statement (Exhibit C) in its news announcements distributed only within the Mets Home Television Territory.",
       "quantity": 1,
       "unit": "public announcement",
-      "frequency": "within three days of execution",
+      "frequency": "within three days of execution of the Agreement",
       "dollar_value": null,
       "details_to_be_agreed": true,
       "conditions": [
-        "Further announcements as agreed by AlphaTrade and the Mets",
-        "Any Sterling approvals not unreasonably delayed or withheld",
-        "Boilerplate statement in form of Exhibit C",
-        "Boilerplate distributed only within the Mets Home Television Territory"
+        "Further announcements as agreed to by AlphaTrade and the Mets",
+        "Any Sterling approvals required shall not be unreasonably delayed or withheld",
+        "Boilerplate statement distributed only within the Mets Home Television Territory, in the form of Exhibit C"
       ],
       "sponsor_obligations": [],
       "proof_of_performance": null,

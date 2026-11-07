@@ -1,0 +1,299 @@
+{
+  "contract": {
+    "sponsor": "Digital Brands Group",
+    "rights_holder": "Learfield College, LLC (multi-media rights holder for Vanderbilt University athletics)",
+    "seasons": [
+      "2025-2026",
+      "2026-2027",
+      "2027-2028",
+      "2028-2029"
+    ],
+    "term_start": "2026-01-26",
+    "term_end": "2029-06-30",
+    "territory": null,
+    "payments": [
+      {
+        "amount": 34000,
+        "due_date": "2026-01-31",
+        "redacted": false
+      },
+      {
+        "amount": 25500,
+        "due_date": "2026-04-01",
+        "redacted": false
+      },
+      {
+        "amount": 25500,
+        "due_date": "2026-05-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2026-07-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2026-08-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2026-09-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2026-10-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2026-11-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2026-12-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2027-01-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2027-02-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2027-03-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2027-04-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2027-05-01",
+        "redacted": false
+      },
+      {
+        "amount": 16663,
+        "due_date": "2027-06-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2027-07-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2027-08-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2027-09-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2027-10-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2027-11-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2027-12-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2028-01-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2028-02-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2028-03-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2028-04-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2028-05-01",
+        "redacted": false
+      },
+      {
+        "amount": 16663,
+        "due_date": "2028-06-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2028-07-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2028-08-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2028-09-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2028-10-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2028-11-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2028-12-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2029-01-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2029-02-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2029-03-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2029-04-01",
+        "redacted": false
+      },
+      {
+        "amount": 16667,
+        "due_date": "2029-05-01",
+        "redacted": false
+      },
+      {
+        "amount": 16663,
+        "due_date": "2029-06-01",
+        "redacted": false
+      }
+    ]
+  },
+  "deliverables": [
+    {
+      "section": null,
+      "category": "other",
+      "description": "Each Contract Year during the Term, Provider provides Sponsor the sponsorship benefits described on Exhibit A (Exhibit A contents are not included in the provided text). Benefits are for the regular season only unless otherwise stated.",
+      "quantity": null,
+      "unit": null,
+      "frequency": "each Contract Year",
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "No Benefits will be delivered unless or until Provider has received the first cash payment or is able to liquidate the stock",
+        "Unless otherwise specifically stated on Exhibit A or elsewhere, all Benefits are for the regular season only",
+        "Sponsor must timely submit Sponsorship Materials; Provider is not obligated to publish materials received after the deadline"
+      ],
+      "sponsor_obligations": [
+        "Pay the Sponsorship Fee (equity plus cash) per the Installment Billing Schedule",
+        "Issue Shares of common stock each Contract Year, with make-whole guarantee",
+        "Provide Trade products/services listed on Exhibit A valued at the Trade Amount each Contract Year",
+        "Pay for advertising production, video or graphics production, talent and service charges"
+      ],
+      "proof_of_performance": null,
+      "source_quote": "Each Contract Year (as defined below) during the Term (as defined below), Provider will provide Sponsor the benefits described on Exhibit A (“Benefits”)."
+    },
+    {
+      "section": null,
+      "category": "marks_designation",
+      "description": "To the extent Benefits include it, right for Sponsor to use University names, logos, trademarks and other identifying indicia as detailed on Exhibit A, in the exact form approved by Provider in writing. No use of current student athlete NIL unless explicitly set out on Exhibit A.",
+      "quantity": null,
+      "unit": null,
+      "frequency": null,
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "Prior review and written approval by Provider of all proposed uses of University Marks",
+        "Use only in the exact form, manner and context Provider approves in writing and as detailed on Exhibit A",
+        "No use in connection with NIL of any current student athlete unless explicitly set forth on Exhibit A"
+      ],
+      "sponsor_obligations": [
+        "Submit all proposed uses of University Marks and examples for prior review and approval",
+        "Obtain promotional premium products bearing University Marks from a Provider-approved licensed provider"
+      ],
+      "proof_of_performance": null,
+      "source_quote": "To the extent Benefits include the right to make use of University’s names, logos, trademarks, service marks, trade names or other identifying indicia (“University Marks”), Sponsor shall provide Provider, for prior review and approval, all proposed uses of University Marks and examples thereof."
+    },
+    {
+      "section": null,
+      "category": "other",
+      "description": "Provider supplies publication space or spot-advertisement locations for Sponsor-prepared promotional/sponsorship recognitions or advertising.",
+      "quantity": null,
+      "unit": null,
+      "frequency": null,
+      "dollar_value": null,
+      "details_to_be_agreed": false,
+      "conditions": [
+        "Sponsorship Materials are subject to Provider’s written approval",
+        "Provider not obligated to publish materials not received by the deadline date Provider provides"
+      ],
+      "sponsor_obligations": [
+        "Timely submit advertisements, recognitions, graphics, LED designs, video-board features, Internet displays and other creative materials",
+        "Bear advertising production, video or graphics production, talent and service charges (Provider services available for an additional fee)"
+      ],
+      "proof_of_performance": null,
+      "source_quote": "Provider is responsible for providing publication space or spot-advertisement locations for Sponsor-prepared promotional/sponsorship recognitions or advertising."
+    },
+    {
+      "section": null,
+      "category": "other",
+      "description": "If Provider is unable to provide any Benefit for reasons other than Sponsor’s fault, Provider offers Alternative Make-Good Benefits in lieu of the unavailable Benefit(s); these exclude tickets, hospitality, catering or similar benefits involving out-of-pocket cost to Provider.",
+      "quantity": null,
+      "unit": null,
+      "frequency": null,
+      "dollar_value": null,
+      "details_to_be_agreed": true,
+      "conditions": [
+        "Applies only if Provider is unable to provide a Benefit for a reason other than Sponsor’s fault",
+        "Subject to Sponsor’s approval, not to be unreasonably withheld, delayed or conditioned",
+        "Will not include tickets, hospitality, catering or similar benefits that involve an out-of-pocket cost to Provider",
+        "If no agreement, Sponsorship Fee is adjusted to reflect Benefit(s) not available"
+      ],
+      "sponsor_obligations": [
+        "Continue to pay the full Sponsorship Fee until Alternative Make-Good Benefits are agreed upon"
+      ],
+      "proof_of_performance": null,
+      "source_quote": "If, for any reason other than Sponsor’s fault, Provider is unable to provide Sponsor with any Benefit(s), then Provider will notify Sponsor and offer Sponsor make-good benefits in lieu of the Benefit(s) Provider is unable to provide Sponsor (“Alternative Make-Good Benefits”)."
+    }
+  ]
+}
