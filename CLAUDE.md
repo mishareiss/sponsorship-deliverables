@@ -11,6 +11,8 @@ with a JSON schema) to extract the contract terms and every deliverable into sch
 - `src/deliverables/extract.py`: calls Claude with the schema as a structured output, checks the stop reason, parses the JSON, re-validates with jsonschema
 - `src/deliverables/cli.py`: `python -m deliverables.cli`, writes `output/<pdf-stem>.json`
 - `src/deliverables/evaluate.py`: `evaluate(pred, gold, contract_text)`, pure scoring of a prediction against gold
+- `src/deliverables/table.py`: `deliverable_rows(result)`, pure JSON-to-table-rows conversion for the demo
+- `app.py`: Streamlit demo page over `output/`
 - `src/deliverables/eval_cli.py`: `python -m deliverables.eval_cli`, prints a report, writes `output/eval/<stem>.json`
 - `gold/`: hand-checked extractions, one per contract stem
 - `data/contracts/`: input contract PDFs
@@ -26,6 +28,7 @@ python -m deliverables.cli data/contracts/mets-alphatrade-2007.pdf   # run one
 python -m deliverables.cli --all                          # run every PDF in data/contracts/
 python -m deliverables.eval_cli mets-alphatrade-2007      # score output/ against gold/ for one stem
 python -m deliverables.eval_cli --all                     # score every stem that has a gold file
+pip install -e ".[demo]" && streamlit run app.py          # demo page (reads output/; API only on "Re-run")
 ```
 Needs `.env` in the repo root with `ANTHROPIC_API_KEY` (and optionally `ANTHROPIC_MODEL`). See `.env.example`.
 
@@ -48,9 +51,3 @@ Needs `.env` in the repo root with `ANTHROPIC_API_KEY` (and optionally `ANTHROPI
 - Don't change schema fields in `schema.py` without asking.
 - Don't switch back to forced `tool_choice`: `claude-sonnet-5-5` rejects it with a 400.
 - Never print or log the API key.
-
-## Gotcha: iCloud hides venv files
-This repo lives under `~/Documents`, which iCloud syncs. iCloud sets the macOS "hidden" flag on files inside `.venv`,
-and Python 3.13 skips hidden `.pth` files, so `import deliverables` fails outside pytest. Tests are covered by
-`pythonpath = ["src"]` in `pyproject.toml`. If the CLI says `No module named 'deliverables'`, run:
-`chflags nohidden .venv/lib/python3.*/site-packages/*.pth`
