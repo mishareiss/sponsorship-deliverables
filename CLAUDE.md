@@ -10,6 +10,9 @@ with a JSON schema) to extract the contract terms and every deliverable into sch
 - `src/deliverables/pdf_text.py`: PDF to text with pdfplumber; strips browser print headers/footers
 - `src/deliverables/extract.py`: calls Claude with the schema as a structured output, checks the stop reason, parses the JSON, re-validates with jsonschema
 - `src/deliverables/cli.py`: `python -m deliverables.cli`, writes `output/<pdf-stem>.json`
+- `src/deliverables/evaluate.py`: `evaluate(pred, gold, contract_text)`, pure scoring of a prediction against gold
+- `src/deliverables/eval_cli.py`: `python -m deliverables.eval_cli`, prints a report, writes `output/eval/<stem>.json`
+- `gold/`: hand-checked extractions, one per contract stem
 - `data/contracts/`: input contract PDFs
 - `output/`: extraction results (committed, not ignored)
 - `tests/`: offline pytest suite
@@ -21,8 +24,23 @@ pip install -e ".[dev]"                                   # install
 pytest                                                    # test
 python -m deliverables.cli data/contracts/mets-alphatrade-2007.pdf   # run one
 python -m deliverables.cli --all                          # run every PDF in data/contracts/
+python -m deliverables.eval_cli mets-alphatrade-2007      # score output/ against gold/ for one stem
+python -m deliverables.eval_cli --all                     # score every stem that has a gold file
 ```
 Needs `.env` in the repo root with `ANTHROPIC_API_KEY` (and optionally `ANTHROPIC_MODEL`). See `.env.example`.
+
+## Eval: what is scored
+- **Matching:** deliverables pair only within the same `section`, scored by `source_quote` similarity
+  (whitespace-normalized; 1.0 if one quote contains the other, else `difflib` ratio; ties go to the higher ratio).
+  Greedy, best first, one-to-one. Unmatched gold = missed (recall), unmatched pred = extra (precision).
+- **Scored fields** on matched pairs: `category`, `quantity`, `dollar_value`, `details_to_be_agreed`,
+  `has_sponsor_obligations` and `has_conditions` (list non-empty). Numbers compare numerically; null is its own value.
+- **Contract block:** `sponsor`/`rights_holder` (case/whitespace-insensitive), `seasons` (as a set),
+  `term_start`/`term_end`, payment count, and per-payment `due_date` and `redacted`.
+- **Grounding:** share of predicted `source_quote`s found verbatim in the PDF text (whitespace-normalized).
+- **Not scored (listed for human review):** `description`, `unit`, `frequency`, condition and obligation text,
+  `proof_of_performance`, `territory`, payment `amount`. Frequency is where the per-season errors live, so it is a
+  known blind spot in v1. There is no minimum match score: two unrelated items in the same section will still pair.
 
 ## Rules
 - Stage changes (`git add -A`), don't commit. The owner reviews and commits.

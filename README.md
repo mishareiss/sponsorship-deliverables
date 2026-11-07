@@ -16,8 +16,11 @@ python -m deliverables.cli data/contracts/mets-alphatrade-2007.pdf
 ```
 Output goes to `output/<pdf-stem>.json`.
 
+Quality is measured against hand-checked gold files in `gold/`: `python -m deliverables.eval_cli --all` reports
+deliverable recall and precision, per-field accuracy, contract-term checks and how many quotes appear verbatim in the PDF.
+
 ## Status
 - [x] Step 1: extract contract terms and deliverables from a PDF into schema-valid JSON
-- [ ] Eval against hand-checked gold files
+- [x] Eval against hand-checked gold files
 - [ ] Reconcile against proof-of-performance data
 - [ ] Draft partner recaps
