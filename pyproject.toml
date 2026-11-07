@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "deliverables"
+version = "0.1.0"
+description = "Extract sponsor deliverables from sports sponsorship contracts with Claude"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic",
+    "pdfplumber",
+    "python-dotenv",
+    "jsonschema",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
