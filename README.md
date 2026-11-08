@@ -137,7 +137,7 @@ I ran two more public contracts through the pipeline. With no answer key, they w
 
 I planned and reviewed; Claude Code implemented. Each step started as a written task brief ([docs/prompts/](docs/prompts/)) with scope, test cases, and acceptance criteria. Claude Code built and staged the change, and I reviewed every diff before committing. [`CLAUDE.md`](CLAUDE.md) holds the project rules the agent follows: tests stay offline, never call the real API in tests, don't change the schema without asking.
 
-Tests were the guardrail: the API client is faked, so all 26 tests run offline and every change had to keep them green. The briefs also show where plans changed. Task 1 asked for forced tool use, the API rejected it on `claude-sonnet-5-5`, and the follow-up switched to structured outputs.
+Tests were the guardrail: the API client is faked, so all 33 tests run offline and every change had to keep them green. The briefs also show where plans changed. Task 1 asked for forced tool use, the API rejected it on `claude-sonnet-5-5`, and the follow-up switched to structured outputs.
 
 ## Run it
 
@@ -156,7 +156,10 @@ python -m deliverables.cli --all
 python -m deliverables.eval_cli mets-alphatrade-2007
 python -m deliverables.eval_cli --all
 
-# demo page (reads saved output; only "Re-run extraction" calls the API)
+# demo page, two tabs at the top:
+#   Upload a contract (first tab): upload any PDF, "Extract deliverables" calls the API;
+#     shows the table, grounding, and a JSON download; nothing is saved to output/
+#   Sample contracts: saved output for the bundled PDFs; only "Re-run extraction" calls the API
 pip install -e ".[demo]"
 streamlit run app.py
 
@@ -167,7 +170,7 @@ pytest
 ## Repo layout
 
 ```
-app.py                     Streamlit demo page
+app.py                     Streamlit demo page (upload tab + sample tab)
 src/deliverables/
   schema.py                JSON schema for the extraction
   pdf_text.py              PDF to text

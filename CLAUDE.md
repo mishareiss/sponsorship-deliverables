@@ -7,12 +7,12 @@ with a JSON schema) to extract the contract terms and every deliverable into sch
 
 ## Layout
 - `src/deliverables/schema.py`: `EXTRACTION_SCHEMA`, the JSON schema the output must match (from `flagship/extraction_schema.py`, plus `additionalProperties: false`)
-- `src/deliverables/pdf_text.py`: PDF to text with pdfplumber; strips browser print headers/footers
+- `src/deliverables/pdf_text.py`: PDF to text with pdfplumber; strips browser print headers/footers; `page_count`, `has_text` (scanned-PDF check)
 - `src/deliverables/extract.py`: calls Claude with the schema as a structured output, checks the stop reason, parses the JSON, re-validates with jsonschema
 - `src/deliverables/cli.py`: `python -m deliverables.cli`, writes `output/<pdf-stem>.json`
 - `src/deliverables/evaluate.py`: `evaluate(pred, gold, contract_text)`, pure scoring of a prediction against gold
 - `src/deliverables/table.py`: `deliverable_rows(result)`, pure JSON-to-table-rows conversion for the demo
-- `app.py`: Streamlit demo page over `output/`
+- `app.py`: Streamlit demo, two tabs: **Upload a contract** (first; extracts any uploaded PDF via the API, shows grounding, offers JSON download, never writes to `output/`; the upload and result live in `st.session_state` so they survive tab switches) and **Sample contracts** (saved results in `output/`)
 - `src/deliverables/eval_cli.py`: `python -m deliverables.eval_cli`, prints a report, writes `output/eval/<stem>.json`
 - `gold/`: hand-checked extractions, one per contract stem
 - `data/contracts/`: input contract PDFs
@@ -28,7 +28,7 @@ python -m deliverables.cli data/contracts/mets-alphatrade-2007.pdf   # run one
 python -m deliverables.cli --all                          # run every PDF in data/contracts/
 python -m deliverables.eval_cli mets-alphatrade-2007      # score output/ against gold/ for one stem
 python -m deliverables.eval_cli --all                     # score every stem that has a gold file
-pip install -e ".[demo]" && streamlit run app.py          # demo page (reads output/; API only on "Re-run")
+pip install -e ".[demo]" && streamlit run app.py          # demo: upload tab calls the API on "Extract deliverables"; sample tab reads output/ (API only on "Re-run")
 ```
 Needs `.env` in the repo root with `ANTHROPIC_API_KEY` (and optionally `ANTHROPIC_MODEL`). See `.env.example`.
 

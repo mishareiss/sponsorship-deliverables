@@ -2,7 +2,7 @@
 
 import copy
 
-from deliverables.evaluate import evaluate
+from deliverables.evaluate import evaluate, evaluate_grounding
 
 CONTRACT_TEXT = """1. Two permanent signs on the press level facade.
 2. Four field level tickets to each home game.
@@ -156,3 +156,16 @@ def test_contract_names_ignore_case_and_whitespace_and_seasons_ignore_order():
     pred["contract"]["seasons"] = ["2008", "2007"]
     contract = evaluate(pred, GOLD, CONTRACT_TEXT)["contract"]
     assert contract["mismatches"] == []
+
+
+def test_evaluate_grounding_on_its_own_for_uploads():
+    # Upload mode has no gold file and calls evaluate_grounding directly.
+    pred = [{"section": "1", "source_quote": "two  LED\nmessages"},
+            {"section": "2", "source_quote": "not in the contract"}]
+    grounding = evaluate_grounding(pred, "Sponsor gets two LED messages per game.")
+    assert (grounding["grounded"], grounding["total"], grounding["rate"]) == (1, 2, 0.5)
+    assert grounding["ungrounded"] == [{"section": "2", "source_quote": "not in the contract"}]
+
+
+def test_evaluate_grounding_with_no_deliverables():
+    assert evaluate_grounding([], "any text") == {"grounded": 0, "total": 0, "rate": None, "ungrounded": []}
