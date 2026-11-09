@@ -15,16 +15,20 @@ import re
 import streamlit as st
 
 from deliverables.table import (
-    CHECK_QUOTE,
-    TO_BE_AGREED,
+    NO_SELECTION,
+    NOT_FOUND,
     eval_line,
     grounded_flags,
     parties_heading,
     show_value_column,
-    summary_parts,
+    status_pieces,
+    table_columns,
+    summary_line,
     table_rows,
     type_counts,
 )
+from deliverables.table import dialog_facts as dialog_fact_texts
+from deliverables.table import dialog_kicker
 
 # The one block of injected CSS. Everything else comes from .streamlit/config.toml.
 # Table cells, rows and the header are found by the st-key-<key> class Streamlit puts on keyed containers.
@@ -59,6 +63,12 @@ h1 { font-size: 2.5rem !important; }
 [class*="_deliv_head"] { background: #E9EEEA; padding: 0.5rem 0.75rem; }
 [class*="_deliv_row_"] { background: #FFFFFF; padding: 0.55rem 0.75rem; border-top: 1px solid #CFD8D2; }
 
+/* Full-row click: the row is the positioning box for the clause button's stretched ::after (below). */
+[class*="_deliv_row_"] { position: relative; cursor: pointer; }
+[class*="_deliv_row_"]:hover { background: #EEF2EF; }
+/* Focus ring on the whole row while its clause button has keyboard focus. */
+[class*="_deliv_row_"]:has([data-testid="stBaseButton-tertiary"]:focus-visible) { outline: 2px solid #1F6B47; outline-offset: -2px; }
+
 /* Tighter gaps between cells than Streamlit's default column gap. */
 [class*="_deliv_table"] [data-testid="stHorizontalBlock"] { gap: 0.75rem; }
 
@@ -78,6 +88,14 @@ h1 { font-size: 2.5rem !important; }
   font-variant-numeric: tabular-nums; }
 [class*="_deliv_row_"] [data-testid="stBaseButton-tertiary"] p { font-size: 1rem; }
 [class*="_deliv_row_"] [data-testid="stBaseButton-tertiary"]:hover { text-decoration: underline; }
+/* Stretched button: an empty box over the whole row, so a click anywhere on the row is a click on the button. */
+[class*="_deliv_row_"] [data-testid="stBaseButton-tertiary"]::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+/* Streamlit makes every element container position: relative, which would shrink that box to the button itself.
+   The clause button's container goes back to static so the row is the box; z-index 1 keeps it above the other
+   cells, whose containers are positioned too. */
+[class*="_deliv_row_"] [data-testid="stElementContainer"]:has([data-testid="stBaseButton-tertiary"]) { position: static; }
+/* The row draws the focus ring instead of the small button. */
+[class*="_deliv_row_"] [data-testid="stBaseButton-tertiary"]:focus-visible { box-shadow: none; outline: none; }
 
 /* Primary button hover/active: Streamlit darkens primaryColor for hover, which turns Field (#1F6B47) into
    near-black #0E2F20. Use a slightly darker Field instead. */
@@ -107,17 +125,8 @@ h1 { font-size: 2.5rem !important; }
 </style>
 """
 
-NO_SELECTION = "Select a row to see the contract text behind it."
-NOT_FOUND = "This text was not found word for word in the PDF. Check it against the contract."
-NOT_STATED = "Not stated"
-STATUS_BLANK = "Set in the contract"
+# NO_SELECTION and NOT_FOUND come from table.py: the static site shows them too.
 ALL_TYPES = "__all__"
-
-# Width ratios: What's owed gets most of the room.
-BASE_COLUMNS = [("Clause", 1.25), ("Type", 1.25), ("What's owed", 4.5), ("Qty", 1.3), ("When", 1.6)]
-VALUE_COLUMN = ("Value", 0.9)
-STATUS_COLUMN = ("Status", 1.3)
-
 
 def inject_css() -> None:
     st.html(CSS)
@@ -133,34 +142,21 @@ def md_label(text: str) -> str:
     return re.sub(r"([\\`*_\[\]<>#~$|])", r"\\\1", text)
 
 
-def anchor_id(key_prefix: str) -> str:
-    return re.sub(r"[^a-z0-9-]+", "-", key_prefix.lower()) + "-deliverables"
-
-
 # ---------- pure HTML builders (every contract-derived string goes through esc) ----------
 
 def status_html(status: str) -> str:
     """'To be agreed' in Signal, 'Check quote' in Ink with a dotted underline, both semibold."""
-    if not status:
-        return ""
-    parts = []
-    if status.startswith(TO_BE_AGREED):
-        parts.append(f'<span class="deliv-tba">{TO_BE_AGREED}</span>')
-    if status.lower().endswith(CHECK_QUOTE.lower()):
-        label = CHECK_QUOTE.lower() if parts else CHECK_QUOTE
-        parts.append(f'<span class="deliv-check">{label}</span>')
-    return " · ".join(parts)
+    return " · ".join(f'<span class="deliv-{style}">{esc(text)}</span>' if style else esc(text)
+                      for style, text in status_pieces(status))
 
 
 def cell_html(text: str) -> str:
     return f'<div class="deliv-cell">{esc(text)}</div>'
 
 
-def summary_html(contract: dict, grounding: dict, anchor: str) -> str:
-    """Summary line; the grounding count links down to the table."""
-    term, payments, quotes = summary_parts(contract, grounding)
-    return (f'<p class="deliv-summary">{esc(term)} · {esc(payments)} · '
-            f'<a href="#{anchor}" target="_self">{esc(quotes)}</a></p>')
+def summary_html(contract: dict, grounding: dict) -> str:
+    """Summary line: term · payments · grounding count, as plain text."""
+    return f'<p class="deliv-summary">{esc(summary_line(contract, grounding))}</p>'
 
 
 def html_list(items: list[str]) -> str:
@@ -169,11 +165,8 @@ def html_list(items: list[str]) -> str:
 
 def dialog_facts(row: dict, with_value: bool) -> list[tuple[str, str]]:
     """(label, HTML) facts for the dialog: Qty, When, Status, plus Value when the row has one."""
-    facts = [("Qty", esc(row["qty"] or NOT_STATED)), ("When", esc(row["when"] or NOT_STATED)),
-             ("Status", status_html(row["status"]) or STATUS_BLANK)]
-    if with_value and row["value"]:
-        facts.insert(2, ("Value", esc(row["value"])))
-    return facts
+    return [(label, status_html(text) if label == "Status" else esc(text))
+            for label, text in dialog_fact_texts(row, with_value)]
 
 
 def fact_html(label: str, value_html: str) -> str:
@@ -181,7 +174,7 @@ def fact_html(label: str, value_html: str) -> str:
 
 
 def dialog_head_html(row: dict) -> str:
-    return (f'<p class="deliv-muted">{esc(row["clause"])} · {esc(row["type"])}</p>'
+    return (f'<p class="deliv-muted">{esc(dialog_kicker(row))}</p>'
             f'<p class="deliv-dialog-title">{esc(row["whats_owed"])}</p>')
 
 
@@ -218,14 +211,15 @@ def show_header(result: dict, key_prefix: str, grounding: dict, evaluation: dict
     right.download_button("Download JSON", json.dumps(result, ensure_ascii=False, indent=2) + "\n",
                           file_name=download_name, mime="application/json",
                           key=f"{key_prefix}_download", width="stretch")
-    st.markdown(summary_html(result["contract"], grounding, anchor_id(key_prefix)), unsafe_allow_html=True)
+    st.markdown(summary_html(result["contract"], grounding), unsafe_allow_html=True)
     if evaluation:
         st.markdown(f'<p class="deliv-muted">{esc(eval_line(evaluation))}</p>', unsafe_allow_html=True)
 
 
 def show_table(rows: list[tuple[int, dict]], key_prefix: str, with_value: bool) -> None:
-    """Header row plus one row per deliverable; the Clause button opens that row's dialog."""
-    columns = BASE_COLUMNS + ([VALUE_COLUMN] if with_value else []) + [STATUS_COLUMN]
+    """Header row plus one row per deliverable. The Clause button opens that row's dialog; CSS stretches
+    its hit area over the whole row (the row container is position: relative), so any click on the row works."""
+    columns = table_columns(with_value)
     ratios = [ratio for _, ratio in columns]
     with st.container(key=f"{key_prefix}_deliv_table", gap=None):
         with st.container(key=f"{key_prefix}_deliv_head"):
@@ -257,8 +251,7 @@ def show_deliverables(result: dict, key_prefix: str, contract_text: str) -> None
                           required=True, label_visibility="collapsed", key=f"{key_prefix}_types")
     shown = [(i, row) for i, row in rows if choice in (ALL_TYPES, None) or row["type"] == choice]
     showing = f'<span class="deliv-showing">Showing {len(shown)}</span>' if len(shown) < len(rows) else ""
-    # Streamlit replaces a heading's id with its own slug, so the link target is a separate empty div.
-    heading.markdown(f'<div id="{anchor_id(key_prefix)}"></div><h3>{len(rows)} deliverables{showing}</h3>',
+    heading.markdown(f'<h3>{len(rows)} deliverables{showing}</h3>',
                      unsafe_allow_html=True, anchors=False)
 
     show_table(shown, key_prefix, show_value_column(result))

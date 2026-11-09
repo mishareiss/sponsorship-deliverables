@@ -52,9 +52,10 @@ def test_dialog_escapes_description_quote_and_lists():
 
 def test_summary_escapes_free_text_dates():
     contract = {"term_start": "<script>soon</script>", "term_end": None, "payments": []}
-    html_text = summary_html(contract, {"grounded": 1, "total": 2}, "sample-x-deliverables")
+    html_text = summary_html(contract, {"grounded": 1, "total": 2})
     assert "<script>" not in html_text and "&lt;script&gt;" in html_text
-    assert '<a href="#sample-x-deliverables" target="_self">1 of 2 quotes found in the PDF</a>' in html_text
+    assert html_text.endswith(" · 1 of 2 quotes found in the PDF</p>")
+    assert "<a " not in html_text  # plain text: the old link only scrolled a little
 
 
 def test_dollar_signs_do_not_become_latex():

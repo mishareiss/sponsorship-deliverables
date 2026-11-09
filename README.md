@@ -2,6 +2,8 @@
 
 An AI pipeline that turns sports sponsorship contracts into a trackable list of deliverables, with an eval that measures how accurate it is.
 
+**[Live demo](https://mishareiss.github.io/sponsorship-deliverables/)**: three public contracts, extracted ahead of time. The live demo shows pre-extracted results only and makes no API calls; to extract your own contract, run the app locally ([Run it](#run-it)).
+
 On the one contract with a hand-checked answer key, it found 12 of 14 deliverables (86% recall), produced no false ones (100% precision), got every contract term and payment date right, and every quote it returned appears word for word in the PDF.
 
 ## The problem
@@ -160,10 +162,14 @@ python -m deliverables.eval_cli --all
 #   Upload a contract (first tab): upload any PDF, "Extract deliverables" calls the API;
 #     shows a one-line contract summary, the table and a JSON download; nothing is saved to output/
 #   Try a sample contract: saved output for the bundled PDFs; only "Re-run extraction" calls the API
-#   Filter the table by type; click a row's clause to open the contract text, conditions and sponsor
+#   Filter the table by type; click anywhere on a row to open the contract text, conditions and sponsor
 #   obligations behind it. Rows whose quote isn't word for word in the PDF say "Check quote"
 pip install -e ".[demo]"
 streamlit run app.py
+
+# static public demo (no API, no server): writes docs/index.html, docs/contracts/*.pdf, docs/.nojekyll
+# from output/; rebuild after changing output/ or the table helpers (a test fails if docs/ is stale)
+python -m deliverables.site
 
 # tests (offline, the API client is faked)
 pytest
@@ -183,6 +189,8 @@ src/deliverables/
   eval_cli.py              eval CLI and report
   table.py                 JSON to table rows, plus the demo's display text (clause labels, status, summary)
   ui.py                    Streamlit rendering for the demo (summary header, row table, row dialog)
+  site.py                  builds the static public demo (docs/) from output/; site_template.html is its page
+docs/                      GitHub Pages: the static demo (index.html, contracts/) and the task briefs (prompts/)
 data/contracts/            input PDFs (public filings)
 gold/                      hand-checked extractions
 output/                    extraction results; output/eval/ has eval results

@@ -166,6 +166,22 @@ def grounded_flags(deliverables: list[dict], contract_text: str) -> list[bool]:
     return [normalize_ws(d["source_quote"]) in text for d in deliverables]
 
 
+def status_pieces(status: str) -> list[tuple[str, str]]:
+    """Split a status into (style, text) pieces, shown joined by " · ".
+
+    "To be agreed · check quote" -> [("tba", "To be agreed"), ("check", "check quote")]; any other
+    non-empty text is one plain piece ("", text); "" -> [].
+    """
+    if not status:
+        return []
+    pieces = []
+    if status.startswith(TO_BE_AGREED):
+        pieces.append(("tba", TO_BE_AGREED))
+    if status.lower().endswith(CHECK_QUOTE.lower()):
+        pieces.append(("check", CHECK_QUOTE.lower() if pieces else CHECK_QUOTE))
+    return pieces or [("", status)]
+
+
 def status_text(details_to_be_agreed: bool, grounded: bool) -> str:
     if details_to_be_agreed and not grounded:
         return f"{TO_BE_AGREED} · {CHECK_QUOTE.lower()}"
@@ -229,7 +245,7 @@ def grounding_text(grounding: dict) -> str:
 
 
 def summary_parts(contract: dict, grounding: dict) -> list[str]:
-    """Term, payments, grounding: the pieces of summary_line (the UI links the last one)."""
+    """Term, payments, grounding: the pieces of summary_line."""
     return [term_text(contract), payments_text(contract), grounding_text(grounding)]
 
 
@@ -237,6 +253,37 @@ def summary_line(contract: dict, grounding: dict) -> str:
     """One line under the contract heading, e.g.
     "Term starts June 13, 2012 · 3 payments totaling $4,500,000 · 37 of 38 quotes found in the PDF"."""
     return " · ".join(summary_parts(contract, grounding))
+
+
+# ---------- page and dialog text shared by the Streamlit app and the static site ----------
+
+PAGE_TITLE = "Sponsorship deliverables"
+TAGLINE = ("Turn a sponsorship contract into a list of everything the team owes the sponsor, "
+           "with the contract text behind each item.")
+NO_SELECTION = "Select a row to see the contract text behind it."
+NOT_FOUND = "This text was not found word for word in the PDF. Check it against the contract."
+FACT_NOT_STATED = "Not stated"
+STATUS_BLANK = "Set in the contract"
+
+
+def table_columns(with_value: bool) -> list[tuple[str, float]]:
+    """(header, width ratio) for the row table; What's owed gets most of the room. Value only if asked."""
+    columns = [("Clause", 1.25), ("Type", 1.25), ("What's owed", 4.5), ("Qty", 1.3), ("When", 1.6)]
+    return columns + ([("Value", 0.9)] if with_value else []) + [("Status", 1.3)]
+
+
+def dialog_kicker(row: dict) -> str:
+    """The Muted line above a dialog's title: "Sch. 1 · 2(a) · Signage"."""
+    return f"{row['clause']} · {row['type']}"
+
+
+def dialog_facts(row: dict, with_value: bool) -> list[tuple[str, str]]:
+    """(label, text) facts for a row's dialog: Qty, When, Status, plus Value when the row has one."""
+    facts = [("Qty", row["qty"] or FACT_NOT_STATED), ("When", row["when"] or FACT_NOT_STATED),
+             ("Status", row["status"] or STATUS_BLANK)]
+    if with_value and row["value"]:
+        facts.insert(2, ("Value", row["value"]))
+    return facts
 
 
 def parties_heading(contract: dict) -> str:

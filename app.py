@@ -18,6 +18,7 @@ from pathlib import Path
 
 import streamlit as st
 
+from deliverables.table import PAGE_TITLE, TAGLINE
 from deliverables.ui import inject_css, show_result
 
 ROOT = Path(__file__).resolve().parent
@@ -27,8 +28,6 @@ EVAL_DIR = OUTPUT_DIR / "eval"
 
 UPLOAD_TAB = "Upload a contract"
 SAMPLE_TAB = "Try a sample contract"
-TAGLINE = ("Turn a sponsorship contract into a list of everything the team owes the sponsor, "
-           "with the contract text behind each item.")
 
 # st.session_state key for the current upload: name, key (sha256), data, text, pages, result.
 UPLOAD_STATE = "upload"
@@ -206,9 +205,9 @@ def sample_tab() -> None:
 
 
 def main() -> None:
-    st.set_page_config(page_title="Sponsorship deliverables", layout="wide")
+    st.set_page_config(page_title=PAGE_TITLE, layout="wide")
     inject_css()
-    st.title("Sponsorship deliverables", anchor=False)
+    st.title(PAGE_TITLE, anchor=False)
     st.markdown(f'<p class="deliv-subtitle">{TAGLINE}</p>', unsafe_allow_html=True)
 
     upload, sample = st.tabs([UPLOAD_TAB, SAMPLE_TAB])

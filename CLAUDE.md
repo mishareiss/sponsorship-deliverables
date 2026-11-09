@@ -11,10 +11,11 @@ with a JSON schema) to extract the contract terms and every deliverable into sch
 - `src/deliverables/extract.py`: calls Claude with the schema as a structured output, checks the stop reason, parses the JSON, re-validates with jsonschema
 - `src/deliverables/cli.py`: `python -m deliverables.cli`, writes `output/<pdf-stem>.json`
 - `src/deliverables/evaluate.py`: `evaluate(pred, gold, contract_text)`, pure scoring of a prediction against gold
-- `src/deliverables/table.py`: `deliverable_rows(result)`, pure JSON-to-table-rows conversion (eval and tests rely on `COLUMNS`); plus a pure display layer for the demo (`table_rows`, `clause_label`, `qty_text`, `status_text`, `grounded_flags` (reuses `normalize_ws`), `summary_line`, `type_counts`, `show_value_column`, `eval_line`). Plain text, no HTML
-- `src/deliverables/ui.py`: Streamlit rendering for the demo. The one injected CSS block (each rule commented; no tag-like text inside it, or `st.html` drops the whole block); summary header (parties h2, Download JSON, summary line, eval line on samples); type pills; a row table built from `st.container` + `st.columns` (Clause is a tertiary button that opens an `@st.dialog`, only from the click branch). Contract text in HTML always goes through `esc()`; Markdown-rendered text (button labels, `st.header`) through `md_label()`. The `*_html` builders are pure and tested in `tests/test_ui.py`. Widget keys start with `upload_` or `sample_`; clause buttons are `<prefix>_row_<i>`, row containers `<prefix>_deliv_row_<i>` (the CSS finds them by that class)
+- `src/deliverables/table.py`: `deliverable_rows(result)`, pure JSON-to-table-rows conversion (eval and tests rely on `COLUMNS`); plus a pure display layer for the demo (`table_rows`, `clause_label`, `qty_text`, `status_text`, `grounded_flags` (reuses `normalize_ws`), `summary_line`, `type_counts`, `show_value_column`, `eval_line`, `status_pieces`, `table_columns`, `dialog_facts`, `dialog_kicker`, and the shared page/dialog strings). Shared by the Streamlit app and the static site. Plain text, no HTML
+- `src/deliverables/ui.py`: Streamlit rendering for the demo. The one injected CSS block (each rule commented; no tag-like text inside it, or `st.html` drops the whole block); summary header (parties h2, Download JSON, summary line, eval line on samples); type pills; a row table built from `st.container` + `st.columns` (Clause is a tertiary button that opens an `@st.dialog`, only from the click branch; its `::after` is stretched over the row container, which is `position: relative`, so the whole row is clickable. Streamlit's element containers are `position: relative`, so the button's own container is reset to `static`). Contract text in HTML always goes through `esc()`; Markdown-rendered text (button labels, `st.header`) through `md_label()`. The `*_html` builders are pure and tested in `tests/test_ui.py`. Widget keys start with `upload_` or `sample_`; clause buttons are `<prefix>_row_<i>`, row containers `<prefix>_deliv_row_<i>` (the CSS finds them by that class)
 - `.streamlit/config.toml`: demo theme (forces light mode; Barlow via Google Fonts)
 - `app.py`: Streamlit demo, two tabs: **Upload a contract** (first; extracts any uploaded PDF via the API, never writes to `output/`; the upload and result live in `st.session_state` so they survive tab switches) and **Try a sample contract** (saved results in `output/`; the bundled PDF's text is read locally and cached with `st.cache_data` so rows can be checked for grounding). `app.py` holds only tabs, session state and API calls
+- `src/deliverables/site.py`: `python -m deliverables.site` builds the static public demo into `docs/` (GitHub Pages, `main` → `/docs`): `index.html`, `contracts/<stem>.pdf`, `.nojekyll`. Every display string is computed with the `table.py` helpers and embedded as escaped JSON; the page's vanilla JS (in `site_template.html`) only lays it out with `textContent`/`createElement`, never `innerHTML`. A CSP with `connect-src 'none'` blocks any network call. Must not import `anthropic`. Deterministic output
 - `src/deliverables/eval_cli.py`: `python -m deliverables.eval_cli`, prints a report, writes `output/eval/<stem>.json`
 - `gold/`: hand-checked extractions, one per contract stem
 - `data/contracts/`: input contract PDFs
@@ -30,6 +31,7 @@ python -m deliverables.cli data/contracts/mets-alphatrade-2007.pdf   # run one
 python -m deliverables.cli --all                          # run every PDF in data/contracts/
 python -m deliverables.eval_cli mets-alphatrade-2007      # score output/ against gold/ for one stem
 python -m deliverables.eval_cli --all                     # score every stem that has a gold file
+python -m deliverables.site                               # rebuild the static demo in docs/ (no API)
 pip install -e ".[demo]" && streamlit run app.py          # demo: upload tab calls the API on "Extract deliverables"; sample tab reads output/ (API only on "Re-run")
 ```
 Needs `.env` in the repo root with `ANTHROPIC_API_KEY` (and optionally `ANTHROPIC_MODEL`). See `.env.example`.
@@ -51,5 +53,7 @@ Needs `.env` in the repo root with `ANTHROPIC_API_KEY` (and optionally `ANTHROPI
 - Stage changes (`git add -A`), don't commit. The owner reviews and commits.
 - Tests are fully offline. Never call the real API in tests; use a fake client.
 - Don't change schema fields in `schema.py` without asking.
+- Rebuild `docs/index.html` (`python -m deliverables.site`) after changing `output/` or the table helpers. `tests/test_site.py` fails if it is stale.
+- The public page (`docs/`) stays static: no API calls, no key, no upload.
 - Don't switch back to forced `tool_choice`: `claude-sonnet-5-5` rejects it with a 400.
 - Never print or log the API key.

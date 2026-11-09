@@ -93,6 +93,24 @@ def test_mets_sample_has_value_column_and_eval_line():
     assert NO_SELECTION in [c.value for c in sample.caption]
 
 
+def test_summary_line_is_plain_text():
+    at = open_sample(METS.stem)
+    summary = next(m.value for m in at.tabs[1].markdown if 'class="deliv-summary"' in m.value)
+    assert "12 of 12 quotes found in the PDF" in summary
+    assert "<a " not in summary and "href" not in summary
+    assert "-deliverables\"" not in all_text(at)  # the old anchor div is gone
+
+
+def test_rows_are_keyed_for_full_row_click():
+    """Each row container is keyed, so the CSS can stretch its clause button over it."""
+    from deliverables.ui import CSS
+
+    assert '[class*="_deliv_row_"] { position: relative;' in CSS
+    assert '[data-testid="stBaseButton-tertiary"]::after { content: ""; position: absolute; inset: 0; z-index: 1; }' in CSS
+    assert '[data-testid="stElementContainer"]:has([data-testid="stBaseButton-tertiary"]) { position: static; }' in CSS
+    assert "<" not in CSS.replace("<style>", "").replace("</style>", "")  # st.html drops a block with tag-like text
+
+
 def test_49ers_sample_has_no_value_column_and_a_button_per_row():
     at = open_sample(NINERS.stem)
     sample = at.tabs[1]

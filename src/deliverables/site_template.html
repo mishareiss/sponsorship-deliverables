@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src '__SCRIPT_HASH__'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>__TITLE__</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@500;600&display=swap">
+<style>
+  /* Palette from the Streamlit app (.streamlit/config.toml and the CSS in ui.py). */
+  :root {
+    --paper: #F6F7F5; --panel: #E9EEEA; --white: #FFFFFF; --ink: #1C2B2A; --muted: #4A5A56;
+    --field: #1F6B47; --field-dark: #185A3B; --signal: #8F5512; --rule: #CFD8D2; --hover: #EEF2EF;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: Barlow, system-ui, sans-serif;
+    font-size: 1rem; line-height: 1.6; }
+  main { max-width: 1440px; margin: 0 auto; padding: 2.5rem 5rem 4rem; }
+  h1, h2, h3, .dialog-title { font-family: "Barlow Semi Condensed", Barlow, sans-serif; font-weight: 600; line-height: 1.25; }
+  h1 { font-size: 2.5rem; margin: 0 0 1rem; }
+  h2 { font-size: 1.5rem; margin: 0 0 0.75rem; overflow-wrap: anywhere; }
+  h3 { font-size: 1.2rem; margin: 1.5rem 0 0.75rem; }
+  p { margin: 0; }
+  a { color: var(--field); text-underline-offset: 2px; }
+  a:hover { color: var(--field-dark); }
+  button { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--field); outline-offset: 2px; }
+
+  .subtitle { max-width: 62ch; margin-bottom: 0.5rem; }
+  .muted { color: var(--muted); }
+  .intro { max-width: 80ch; margin-bottom: 1.5rem; }
+  .summary, .cell, .fact, .pill, .switch { font-variant-numeric: tabular-nums; }
+  .contract-meta { display: grid; gap: 0.25rem; }
+  .pdf-link { margin-top: 0.25rem; }
+
+  /* Contract switcher: styled like the app's tabs (Field text and underline when selected). */
+  .switcher { display: flex; flex-wrap: wrap; gap: 0 1.5rem; border-bottom: 1px solid var(--rule); margin-bottom: 1.5rem; }
+  .switch { background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; padding: 0.6rem 0;
+    cursor: pointer; font-size: 0.95rem; }
+  .switch:hover { color: var(--field); }
+  .switch[aria-pressed="true"] { color: var(--field); border-bottom-color: var(--field); }
+
+  /* Type pills: Rule outline; selected in Field on a light Field tint, like st.pills. */
+  .count-showing { font-family: Barlow, sans-serif; font-size: 1rem; font-weight: 500; color: var(--muted); margin-left: 0.75rem; }
+  .pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+  .pill { background: transparent; border: 1px solid var(--rule); border-radius: 999px; padding: 0.2rem 0.75rem;
+    font-size: 0.875rem; cursor: pointer; line-height: 1.6; }
+  .pill:hover { border-color: var(--field); color: var(--field); }
+  .pill[aria-pressed="true"] { background: #DCE9E1; border-color: var(--field); color: var(--field); }
+
+  /* Table: one block with a single outer border; header on Panel, rows on White with Rule dividers. */
+  .table { border: 1px solid var(--rule); border-radius: 0.25rem; overflow: hidden; background: var(--white); }
+  .tr { display: grid; grid-template-columns: var(--cols); gap: 0.75rem; padding: 0.55rem 0.75rem; }
+  .thead { background: var(--panel); padding: 0.5rem 0.75rem; font-weight: 600; }
+  .row { position: relative; border-top: 1px solid var(--rule); cursor: pointer; }
+  .row:hover { background: var(--hover); }
+  .row:has(.clause:focus-visible) { outline: 2px solid var(--field); outline-offset: -2px; }
+  .cell { overflow-wrap: anywhere; line-height: 1.4; min-width: 0; }
+  /* Stretched button: the clause button's ::after covers the whole row, so a click anywhere opens the dialog. */
+  .clause { background: none; border: 0; padding: 0; text-align: left; color: var(--field); font-weight: 600;
+    cursor: pointer; line-height: 1.4; }
+  .clause::after { content: ""; position: absolute; inset: 0; }
+  .clause:focus-visible { outline: none; }
+  .row:hover .clause { text-decoration: underline; }
+  .caption { color: var(--muted); font-size: 0.875rem; margin-top: 0.75rem; }
+
+  /* Status: "To be agreed" in Signal, "Check quote" in Ink with a dotted underline, both semibold. */
+  .st-tba { color: var(--signal); font-weight: 600; }
+  .st-check { color: var(--ink); font-weight: 600; text-decoration: underline dotted; text-underline-offset: 3px; }
+
+  /* Dialog on White; the backdrop dims the page. Padding sits on the inner box so a click on the dialog
+     element itself is a click on the backdrop. */
+  dialog { border: 0; border-radius: 0.5rem; padding: 0; width: min(900px, calc(100vw - 2rem)); max-height: calc(100vh - 4rem);
+    background: var(--white); color: var(--ink); box-shadow: 0 10px 40px rgba(28, 43, 42, 0.25); }
+  dialog::backdrop { background: rgba(28, 43, 42, 0.45); }
+  .dialog-inner { padding: 1.25rem 1.5rem 1.75rem; }
+  .dialog-bar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+  .dialog-name { font-family: "Barlow Semi Condensed", Barlow, sans-serif; font-size: 1.2rem; font-weight: 600; margin: 0; }
+  .close { background: var(--white); border: 1px solid var(--rule); border-radius: 0.25rem; padding: 0.3rem 0.9rem; cursor: pointer; }
+  .close:hover { border-color: var(--field); color: var(--field); }
+  .dialog-title { font-size: 1.35rem; margin: 0.25rem 0 0.5rem; overflow-wrap: anywhere; }
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: 0.75rem 1rem; }
+  .fact-label { color: var(--muted); font-size: 0.875rem; }
+  .fact { overflow-wrap: anywhere; }
+  .label { font-weight: 600; margin: 1.25rem 0 0.35rem; }
+  .quote { background: var(--paper); border-radius: 0.25rem; padding: 0.75rem 1rem; margin: 0; white-space: pre-line;
+    overflow-wrap: anywhere; }
+  .warn { color: var(--signal); font-weight: 600; margin-top: 0.5rem; }
+  .dialog-inner ul { margin: 0; padding-left: 1.25rem; }
+  .dialog-inner li { overflow-wrap: anywhere; }
+
+  /* Phones: 16px gutters; each row becomes a card with labeled facts; the header row is hidden. */
+  @media (max-width: 640px) {
+    main { padding: 1.5rem 1rem 3rem; }
+    h1 { font-size: 2rem; }
+    .thead { display: none; }
+    .tr { grid-template-columns: minmax(0, 1fr); gap: 0.15rem; padding: 0.75rem; }
+    .cell.empty { display: none; }
+    .cell[data-label]::before { content: attr(data-label) ": "; color: var(--muted); }
+    .c-type { color: var(--muted); }
+    .c-whats-owed { margin: 0.15rem 0 0.25rem; }
+    .dialog-inner { padding: 1rem 1rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>__TITLE__</h1>
+  <p class="subtitle">__TAGLINE__</p>
+  <p class="muted intro">These contracts were extracted ahead of time with Claude. The full app also extracts uploaded contracts; it runs locally from <a href="__REPO_URL__">the repo</a>.</p>
+  <nav class="switcher" id="switcher" aria-label="Contract"></nav>
+  <section id="contract" aria-label="Contract results"></section>
+  <noscript><p>This page needs JavaScript to show the contracts.</p></noscript>
+</main>
+
+<dialog id="dialog" aria-labelledby="dialog-title">
+  <div class="dialog-inner">
+    <div class="dialog-bar">
+      <p class="dialog-name">Deliverable</p>
+      <button type="button" class="close" id="dialog-close" autofocus>Close</button>
+    </div>
+    <div id="dialog-body"></div>
+  </div>
+</dialog>
+
+<script type="application/json" id="data">__DATA__</script>
+<script id="app">
+(function () {
+  "use strict";
+  // Every piece of data goes into the page through textContent or attributes, never as markup.
+  var page = JSON.parse(document.getElementById("data").textContent);
+  var contracts = page.contracts;
+  var filters = {};  // stem -> selected type label; "" means All
+  var opener = null;  // the row button that opened the dialog
+  var switcher = document.getElementById("switcher");
+  var section = document.getElementById("contract");
+  var dialog = document.getElementById("dialog");
+  var dialogBody = document.getElementById("dialog-body");
+  var FIELDS = { "Clause": "clause", "Type": "type", "What's owed": "whats_owed", "Qty": "qty",
+                 "When": "when", "Value": "value", "Status": "status" };
+
+  function el(tag, className, text) {
+    var node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined && text !== null) node.textContent = text;
+    return node;
+  }
+
+  // Status-like values arrive as [style, text] pieces, shown joined by " · ".
+  function addPieces(parent, pieces) {
+    pieces.forEach(function (piece, i) {
+      if (i) parent.appendChild(document.createTextNode(" · "));
+      parent.appendChild(el("span", piece[0] ? "st-" + piece[0] : null, piece[1]));
+    });
+    return parent;
+  }
+
+  function byStem(stem) {
+    for (var i = 0; i < contracts.length; i++) if (contracts[i].stem === stem) return contracts[i];
+    return null;
+  }
+
+  // ---------- dialog ----------
+
+  function openDialog(row, button) {
+    opener = button;
+    dialogBody.replaceChildren();
+    dialogBody.appendChild(el("p", "muted", row.kicker));
+    var title = el("p", "dialog-title", row.whats_owed);
+    title.id = "dialog-title";
+    dialogBody.appendChild(title);
+    var facts = el("div", "facts");
+    row.facts.forEach(function (fact) {
+      var box = el("div");
+      box.appendChild(el("p", "fact-label", fact[0]));
+      box.appendChild(addPieces(el("p", "fact"), fact[1]));
+      facts.appendChild(box);
+    });
+    dialogBody.appendChild(facts);
+    dialogBody.appendChild(el("p", "label", "Contract text"));
+    dialogBody.appendChild(el("blockquote", "quote", row.quote));
+    if (!row.grounded) dialogBody.appendChild(el("p", "warn", page.not_found));
+    [["Conditions", row.conditions], ["Sponsor must", row.obligations]].forEach(function (list) {
+      if (!list[1].length) return;
+      dialogBody.appendChild(el("p", "label", list[0]));
+      var ul = el("ul");
+      list[1].forEach(function (item) { ul.appendChild(el("li", null, item)); });
+      dialogBody.appendChild(ul);
+    });
+    dialog.showModal();
+  }
+
+  document.getElementById("dialog-close").addEventListener("click", function () { dialog.close(); });
+  // A click outside the inner box lands on the dialog element itself: treat it as a backdrop click.
+  dialog.addEventListener("click", function (event) { if (event.target === dialog) dialog.close(); });
+  // Escape and Close both end here: put focus back on the row that opened the dialog.
+  dialog.addEventListener("close", function () { if (opener) opener.focus(); });
+
+  // ---------- table ----------
+
+  function renderTable(contract, holder, heading) {
+    var choice = filters[contract.stem] || "";
+    var rows = contract.rows.filter(function (row) { return !choice || row.type === choice; });
+    heading.replaceChildren(document.createTextNode(contract.rows.length + " deliverables"));
+    if (rows.length < contract.rows.length) heading.appendChild(el("span", "count-showing", "Showing " + rows.length));
+
+    var table = el("div", "table");
+    table.setAttribute("role", "table");
+    table.setAttribute("aria-label", "Deliverables");
+    table.style.setProperty("--cols", contract.widths.map(function (w) { return "minmax(0, " + w + "fr)"; }).join(" "));
+    var head = el("div", "tr thead");
+    head.setAttribute("role", "row");
+    contract.columns.forEach(function (name) {
+      var th = el("div", "cell", name);
+      th.setAttribute("role", "columnheader");
+      head.appendChild(th);
+    });
+    table.appendChild(head);
+
+    rows.forEach(function (row) {
+      var tr = el("div", "tr row");
+      tr.setAttribute("role", "row");
+      contract.columns.forEach(function (name) {
+        var key = FIELDS[name];
+        var td = el("div", "cell c-" + key.replace("_", "-"));
+        td.setAttribute("role", "cell");
+        if (key === "clause") {
+          var button = el("button", "clause", row.clause);
+          button.type = "button";
+          button.setAttribute("aria-haspopup", "dialog");
+          button.addEventListener("click", function () { openDialog(row, button); });
+          td.appendChild(button);
+        } else if (key === "status") {
+          addPieces(td, row.status);
+          if (!row.status.length) td.classList.add("empty");
+        } else {
+          td.textContent = row[key];
+          if (!row[key]) td.classList.add("empty");
+        }
+        if (key !== "clause" && key !== "type" && key !== "whats_owed") td.setAttribute("data-label", name);
+        tr.appendChild(td);
+      });
+      table.appendChild(tr);
+    });
+    holder.replaceChildren(table);
+  }
+
+  function renderPills(contract, holder, onChange) {
+    if (contract.types.length < 2) return;
+    var group = el("div", "pills");
+    group.setAttribute("role", "group");
+    group.setAttribute("aria-label", "Filter by type");
+    var options = [["", "All " + contract.rows.length]].concat(contract.types.map(function (t) {
+      return [t[0], t[0] + " " + t[1]];
+    }));
+    var buttons = options.map(function (option) {
+      var button = el("button", "pill", option[1]);
+      button.type = "button";
+      button.addEventListener("click", function () {
+        filters[contract.stem] = option[0];
+        buttons.forEach(function (b, i) { b.setAttribute("aria-pressed", String(options[i][0] === option[0])); });
+        onChange();
+      });
+      button.setAttribute("aria-pressed", String((filters[contract.stem] || "") === option[0]));
+      group.appendChild(button);
+      return button;
+    });
+    holder.appendChild(group);
+  }
+
+  // ---------- one contract ----------
+
+  function renderContract(contract) {
+    section.replaceChildren();
+    var meta = el("div", "contract-meta");
+    meta.appendChild(el("h2", null, contract.heading));
+    meta.appendChild(el("p", "summary", contract.summary));
+    if (contract.eval) meta.appendChild(el("p", "muted", contract.eval));
+    if (contract.note) meta.appendChild(el("p", "muted", contract.note));
+    var link = el("a", null, "Open the contract (PDF)");
+    link.href = contract.pdf;
+    link.target = "_blank";
+    link.rel = "noopener";
+    var linkLine = el("p", "pdf-link");
+    linkLine.appendChild(link);
+    meta.appendChild(linkLine);
+    section.appendChild(meta);
+
+    var heading = el("h3");
+    section.appendChild(heading);
+    var tableHolder = el("div");
+    renderPills(contract, section, function () { renderTable(contract, tableHolder, heading); });
+    section.appendChild(tableHolder);
+    section.appendChild(el("p", "caption", page.no_selection));
+    renderTable(contract, tableHolder, heading);
+  }
+
+  function show(stem) {
+    var contract = byStem(stem) || contracts[0];
+    Array.prototype.forEach.call(switcher.children, function (button) {
+      button.setAttribute("aria-pressed", String(button.dataset.stem === contract.stem));
+    });
+    renderContract(contract);
+    try { history.replaceState(null, "", "#" + contract.stem); } catch (e) { /* file:// in some browsers */ }
+  }
+
+  contracts.forEach(function (contract) {
+    var button = el("button", "switch", contract.label);
+    button.type = "button";
+    button.dataset.stem = contract.stem;
+    button.addEventListener("click", function () { show(contract.stem); });
+    switcher.appendChild(button);
+  });
+  show(decodeURIComponent(location.hash.slice(1)));
+})();
+</script>
+</body>
+</html>
