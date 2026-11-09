@@ -158,9 +158,10 @@ python -m deliverables.eval_cli --all
 
 # demo page, two tabs at the top:
 #   Upload a contract (first tab): upload any PDF, "Extract deliverables" calls the API;
-#     shows the table, grounding, and a JSON download; nothing is saved to output/
+#     shows a one-line contract summary, the table and a JSON download; nothing is saved to output/
 #   Try a sample contract: saved output for the bundled PDFs; only "Re-run extraction" calls the API
-#   Select a table row to see the contract text, conditions and sponsor obligations behind it
+#   Filter the table by type; click a row's clause to open the contract text, conditions and sponsor
+#   obligations behind it. Rows whose quote isn't word for word in the PDF say "Check quote"
 pip install -e ".[demo]"
 streamlit run app.py
 
@@ -180,8 +181,8 @@ src/deliverables/
   cli.py                   extraction CLI
   evaluate.py              scoring against gold (pure)
   eval_cli.py              eval CLI and report
-  table.py                 JSON to table rows, plus display headers and labels for the demo
-  ui.py                    Streamlit rendering for the demo (contract summary, table, row detail)
+  table.py                 JSON to table rows, plus the demo's display text (clause labels, status, summary)
+  ui.py                    Streamlit rendering for the demo (summary header, row table, row dialog)
 data/contracts/            input PDFs (public filings)
 gold/                      hand-checked extractions
 output/                    extraction results; output/eval/ has eval results

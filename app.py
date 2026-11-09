@@ -18,7 +18,6 @@ from pathlib import Path
 
 import streamlit as st
 
-from deliverables.evaluate import evaluate_grounding
 from deliverables.ui import inject_css, show_result
 
 ROOT = Path(__file__).resolve().parent
@@ -116,6 +115,7 @@ def upload_tab() -> None:
 
     upload = st.file_uploader("Contract PDF", type="pdf", key=UPLOADER_KEY,
                               on_change=clear_upload_if_removed)
+    st.caption("Extraction uses the Claude API and takes about a minute.")
     if upload is not None:
         try:
             store_upload(upload)
@@ -127,7 +127,6 @@ def upload_tab() -> None:
     # Everything below renders from session state, not from the uploader.
     stored = st.session_state.get(UPLOAD_STATE)
     if stored is None:
-        st.info("Upload a sponsorship contract PDF. Extraction uses the Claude API and takes about a minute.")
         return
     text = stored["text"]
     if not has_text(text):
@@ -145,13 +144,19 @@ def upload_tab() -> None:
     result = stored["result"]
     if result is None:
         return
-    # The file hash is in the prefix so a new upload starts with a fresh filter and selection.
-    show_result(result, f"upload_{stored['key'][:12]}",
-                grounding=evaluate_grounding(result["deliverables"], text),
-                download_name=f"{Path(stored['name']).stem}.json")
+    # The file hash is in the prefix so a new upload starts with a fresh filter.
+    show_result(result, f"upload_{stored['key'][:12]}", text, download_name=f"{Path(stored['name']).stem}.json")
 
 
 # ---------- sample tab ----------
+
+@st.cache_data(show_spinner=False)
+def read_sample_pdf(path: str) -> tuple[str, int]:
+    """Text and page count of a bundled contract (local, offline), cached by path."""
+    from deliverables.pdf_text import extract_text, page_count
+
+    return extract_text(path), page_count(path)
+
 
 def rerun_extraction(pdf_path: Path) -> dict:
     """Call the real API, save output/<stem>.json and return the result."""
@@ -193,15 +198,18 @@ def sample_tab() -> None:
     if result is None:
         st.info(f"No saved output for {stem} yet. Press Re-run extraction to create it.")
         return
-    # The stem is in the prefix so each contract keeps its own filter and selection.
-    show_result(result, f"sample_{stem}", evaluation=load_json(EVAL_DIR / f"{stem}.json"))
+    text, pages = read_sample_pdf(str(pdf_path))
+    st.caption(f"{pdf_path.name} · {pages} pages · {len(text):,} characters")
+    # The stem is in the prefix so each contract keeps its own filter.
+    show_result(result, f"sample_{stem}", text, download_name=f"{stem}.json",
+                evaluation=load_json(EVAL_DIR / f"{stem}.json"))
 
 
 def main() -> None:
     st.set_page_config(page_title="Sponsorship deliverables", layout="wide")
     inject_css()
-    st.title("Sponsorship deliverables")
-    st.markdown(TAGLINE)
+    st.title("Sponsorship deliverables", anchor=False)
+    st.markdown(f'<p class="deliv-subtitle">{TAGLINE}</p>', unsafe_allow_html=True)
 
     upload, sample = st.tabs([UPLOAD_TAB, SAMPLE_TAB])
     with upload:

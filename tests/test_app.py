@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parent.parent
 APP = str(ROOT / "app.py")
 CONTRACTS = ROOT / "data" / "contracts"
 METS = ROOT / "output" / "mets-alphatrade-2007.json"
+NINERS = ROOT / "output" / "49ers-violin-memory-2012.json"
 NO_SELECTION = "Select a row to see the contract text behind it."
 
 
@@ -42,72 +43,98 @@ def all_text(container) -> str:
     return "\n".join(m.value for m in container.markdown)
 
 
+def load(path: Path) -> dict:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def clause_buttons(at: AppTest, prefix: str) -> list:
+    return [b for b in at.button if b.key and b.key.startswith(f"{prefix}_row_")]
+
+
+def header_cells(container) -> list[str]:
+    return [m.value for m in container.markdown if 'class="deliv-th"' in m.value]
+
+
 def test_renders_two_tabs_upload_first():
     at = run_app()
     assert [t.label for t in at.tabs] == ["Upload a contract", "Try a sample contract"]
     assert not at.sidebar.selectbox and not at.sidebar.button and not at.sidebar.radio
-    assert "Upload a sponsorship contract PDF" in at.tabs[0].info[0].value
+    upload = at.tabs[0]
+    assert not upload.info  # no empty-state box
+    assert upload.caption[0].value == "Extraction uses the Claude API and takes about a minute."
     assert at.title[0].value == "Sponsorship deliverables"
     assert "everything the team owes the sponsor" in all_text(at)
 
 
-def open_mets() -> AppTest:
+def open_sample(stem: str) -> AppTest:
     at = run_app()
-    at.selectbox(key="sample_contract").set_value(CONTRACTS / f"{METS.stem}.pdf")
+    at.selectbox(key="sample_contract").set_value(CONTRACTS / f"{stem}.pdf")
     at.run()
     assert not at.exception, at.exception
     return at
 
 
-def test_sample_tab_shows_saved_output_without_api():
-    at = open_mets()
+def test_mets_sample_has_value_column_and_eval_line():
+    at = open_sample(METS.stem)
     sample = at.tabs[1]
-    mets = json.loads(METS.read_text(encoding="utf-8"))
-    assert mets["contract"]["sponsor"] in all_text(sample)
-    assert "Not stated in contract" in all_text(sample)  # Mets has no term dates
-    table = sample.dataframe[0].value
-    assert list(table.columns)[:3] == ["Clause", "Type", "What's owed"]
-    assert len(table) == len(mets["deliverables"])
-    assert "Checked against the answer key" in [s.value for s in sample.subheader]
-    assert any("hand-checked answer key" in c.value for c in sample.caption)
+    mets = load(METS)
+    text = all_text(sample)
+    assert sample.header[0].value.startswith("AlphaTrade.com and Sterling Mets")
+    assert "Term not stated in contract · 6 payments, amounts redacted · " in text
+    assert "12 of 12 quotes found in the PDF" in text
+    assert ("Checked against a hand-built answer key: found 12 of 14 deliverables, no false positives."
+            in text)
+    assert any(">Value<" in cell for cell in header_cells(sample))
+    assert '<div class="deliv-cell">&#36;50,000</div>' in text
+    assert len(clause_buttons(at, f"sample_{METS.stem}")) == len(mets["deliverables"])
     assert at.button(key="sample_rerun").proto.type == "secondary"
-    assert not sample.expander  # no wall of expanders
+    assert sample.get("download_button")
+    assert not sample.expander and not sample.dataframe and not sample.metric
     assert NO_SELECTION in [c.value for c in sample.caption]
 
 
-def test_sample_tab_selected_row_shows_detail_panel():
-    at = open_mets()
-    mets = json.loads(METS.read_text(encoding="utf-8"))
-    at.session_state[f"sample_{METS.stem}_table"] = {"selection": {"rows": [0], "columns": [], "cells": []}}
-    at.run()
-    assert not at.exception, at.exception
+def test_49ers_sample_has_no_value_column_and_a_button_per_row():
+    at = open_sample(NINERS.stem)
     sample = at.tabs[1]
-    first = mets["deliverables"][0]
-    detail = all_text(sample)
-    assert "Contract text" in detail and "Sponsor obligations" in detail
-    assert first["source_quote"][:40].replace("'", "&#x27;") in detail
-    assert NO_SELECTION not in [c.value for c in sample.caption]
+    niners = load(NINERS)
+    headers = header_cells(sample)
+    assert [h.split(">")[1].split("<")[0] for h in headers] == [
+        "Clause", "Type", "What's owed", "Qty", "When", "Status"]
+    buttons = clause_buttons(at, f"sample_{NINERS.stem}")
+    assert len(buttons) == len(niners["deliverables"]) == 38
+    assert all(b.proto.type == "tertiary" for b in buttons)
+    assert buttons[3].label == "Sch. 1 · 2(a)"
+    super_bowl = next(i for i, d in enumerate(niners["deliverables"]) if d["section"].endswith("(Super Bowl)"))
+    assert buttons[super_bowl].label == "Sch. 1 · 5(c)"  # the note is dropped from the clause label
 
 
-def test_sample_tab_to_be_agreed_flag():
-    at = open_mets()
-    mets = json.loads(METS.read_text(encoding="utf-8"))
-    index = next(i for i, d in enumerate(mets["deliverables"]) if d["details_to_be_agreed"])
-    at.session_state[f"sample_{METS.stem}_table"] = {"selection": {"rows": [index], "columns": [], "cells": []}}
+def test_type_pills_filter_rows():
+    at = open_sample(NINERS.stem)
+    prefix = f"sample_{NINERS.stem}"
+    pills = at.pills(key=f"{prefix}_types")
+    assert pills.value == "__all__"
+    assert pills.format_func("__all__") == "All 38" and pills.format_func("Activation") == "Activation 10"
+    assert "Showing" not in all_text(at.tabs[1])
+    pills.set_value("Tickets")
     at.run()
     assert not at.exception, at.exception
-    assert '<p class="deliv-tba">To be agreed</p>' in all_text(at.tabs[1])
+    assert len(clause_buttons(at, prefix)) == 4
+    assert "38 deliverables" in all_text(at.tabs[1]) and "Showing 4" in all_text(at.tabs[1])
 
 
-def test_sample_tab_type_filter_narrows_table():
-    at = open_mets()
-    pills = at.pills(key=f"sample_{METS.stem}_types")
-    assert "Scoreboard / LED" in pills.options
-    pills.set_value(["Signage"])
+def test_clause_button_opens_dialog_once():
+    at = open_sample(METS.stem)
+    from deliverables.ui import esc
+
+    quote = load(METS)["deliverables"][3]["source_quote"]
+    at.button(key=f"sample_{METS.stem}_row_3").click()
     at.run()
     assert not at.exception, at.exception
-    table = at.tabs[1].dataframe[0].value
-    assert set(table["Type"]) == {"Signage"}
+    text = all_text(at)
+    assert "deliv-dialog-title" in text and "Contract text" in text
+    assert esc(quote[:60]) in text
+    at.run()  # any other rerun must not reopen it
+    assert "deliv-dialog-title" not in all_text(at)
 
 
 def test_sample_tab_switching_contracts_does_not_call_api():
@@ -116,26 +143,41 @@ def test_sample_tab_switching_contracts_does_not_call_api():
         at.selectbox(key="sample_contract").set_value(pdf)
         at.run()
         assert not at.exception, at.exception
-        assert at.tabs[1].dataframe or at.tabs[1].info
+        assert clause_buttons(at, f"sample_{pdf.stem}") or at.tabs[1].info
+
+
+def upload_state(result: dict, text: str) -> dict:
+    return {"upload": {"name": "my-contract.pdf", "key": "abc", "data": b"%PDF-fake", "text": text,
+                       "pages": 3, "result": result}}
 
 
 def test_upload_tab_renders_stored_result_across_reruns():
-    result = json.loads(METS.read_text(encoding="utf-8"))
+    result = load(METS)
     text = "\n".join(d["source_quote"] for d in result["deliverables"])
-    stored = {"name": "my-contract.pdf", "key": "abc", "data": b"%PDF-fake", "text": text,
-              "pages": 3, "result": result}
-    at = run_app({"upload": stored})
+    at = run_app(upload_state(result, text))
 
     for _ in range(2):  # first render, then a rerun with no file in the uploader
         upload = at.tabs[0]
-        assert not upload.info  # not the empty "upload a PDF" prompt
-        assert "my-contract.pdf · 3 pages" in upload.caption[0].value
-        assert result["contract"]["sponsor"] in all_text(upload)
-        assert "Grounding" in [s.value for s in upload.subheader]
-        assert upload.get("download_button")  # JSON download next to the result header
+        assert not upload.info
+        assert "my-contract.pdf · 3 pages" in upload.caption[1].value
+        assert result["contract"]["sponsor"] in upload.header[0].value
+        assert "12 of 12 quotes found in the PDF" in all_text(upload)
+        assert upload.get("download_button")
+        assert len(clause_buttons(at, "upload_abc")) == 12
         assert at.session_state["upload"]["result"] == result
         at.run()
         assert not at.exception, at.exception
+
+
+def test_upload_flags_the_quote_not_in_the_pdf():
+    """The saved 49ers output is fully grounded, so drop one quote from the text to get a flag."""
+    result = load(NINERS)
+    text = "\n".join(d["source_quote"] for d in result["deliverables"][1:])
+    at = run_app(upload_state(result, text))
+    upload_text = all_text(at.tabs[0])
+    assert "37 of 38 quotes found in the PDF" in upload_text
+    assert upload_text.count('<span class="deliv-check">Check quote</span>') == 1
+    assert not any(">Value<" in cell for cell in header_cells(at.tabs[0]))
 
 
 def test_upload_tab_stored_file_without_result_shows_extract_button():
@@ -144,4 +186,4 @@ def test_upload_tab_stored_file_without_result_shows_extract_button():
     at = run_app({"upload": stored})
     assert at.button(key="upload_extract").label == "Extract deliverables"
     assert at.button(key="upload_extract").proto.type == "primary"
-    assert not at.tabs[0].dataframe
+    assert not clause_buttons(at, "upload_abc")
