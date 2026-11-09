@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src '__SCRIPT_HASH__'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <title>__TITLE__</title>
@@ -17,7 +17,8 @@
     color-scheme: light;
   }
   * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
+  /* The gutter stays reserved, so the page does not shift when the dialog hides its scrollbar. */
+  html { -webkit-text-size-adjust: 100%; scrollbar-gutter: stable; }
   body { margin: 0; background: var(--paper); color: var(--ink); font-family: Barlow, system-ui, sans-serif;
     font-size: 1rem; line-height: 1.6; }
   main { max-width: 1440px; margin: 0 auto; padding: 2.5rem 5rem 4rem; }
@@ -74,12 +75,18 @@
   .st-check { color: var(--ink); font-weight: 600; text-decoration: underline dotted; text-underline-offset: 3px; }
 
   /* Dialog on White; the backdrop dims the page. Padding sits on the inner box so a click on the dialog
-     element itself is a click on the backdrop. */
-  dialog { border: 0; border-radius: 0.5rem; padding: 0; width: min(900px, calc(100vw - 2rem)); max-height: calc(100vh - 4rem);
+     element itself is a click on the backdrop. The dialog fits the viewport and the inner box scrolls;
+     overscroll-behavior stops that scroll from chaining to the (locked) page behind it. */
+  dialog { border: 0; border-radius: 0.5rem; padding: 0; width: min(900px, calc(100vw - 2rem)); max-width: none;
+    max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px); overflow: hidden;
     background: var(--white); color: var(--ink); box-shadow: 0 10px 40px rgba(28, 43, 42, 0.25); }
+  dialog[open] { display: flex; flex-direction: column; }
   dialog::backdrop { background: rgba(28, 43, 42, 0.45); }
-  .dialog-inner { padding: 1.25rem 1.5rem 1.75rem; }
-  .dialog-bar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+  .dialog-inner { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch; padding: 0 1.5rem 1.75rem; }
+  /* The bar with Close stays pinned at the top of the scrolling box. */
+  .dialog-bar { position: sticky; top: 0; z-index: 1; background: var(--white); display: flex;
+    justify-content: space-between; align-items: center; gap: 1rem; padding: 1.25rem 0 0.5rem; }
   .dialog-name { font-family: "Barlow Semi Condensed", Barlow, sans-serif; font-size: 1.2rem; font-weight: 600; margin: 0; }
   .close { background: var(--white); border: 1px solid var(--rule); border-radius: 0.25rem; padding: 0.3rem 0.9rem; cursor: pointer; }
   .close:hover { border-color: var(--field); color: var(--field); }
@@ -104,7 +111,11 @@
     .cell[data-label]::before { content: attr(data-label) ": "; color: var(--muted); }
     .c-type { color: var(--muted); }
     .c-whats-owed { margin: 0.15rem 0 0.25rem; }
-    .dialog-inner { padding: 1rem 1rem 1.5rem; }
+    /* The dialog becomes a bottom sheet: full width, anchored to the bottom, rounded top corners. */
+    dialog { width: 100%; margin: auto 0 0; border-radius: 0.75rem 0.75rem 0 0;
+      max-height: 90vh; max-height: 90dvh; }
+    .dialog-inner { padding: 0 1rem calc(1.5rem + env(safe-area-inset-bottom, 0px)); }
+    .dialog-bar { padding-top: 1rem; }
   }
 </style>
 </head>
@@ -137,6 +148,8 @@
   var contracts = page.contracts;
   var filters = {};  // stem -> selected type label; "" means All
   var opener = null;  // the row button that opened the dialog
+  var savedY = 0;  // page scroll position while the dialog is open
+  var locked = false;
   var switcher = document.getElementById("switcher");
   var section = document.getElementById("contract");
   var dialog = document.getElementById("dialog");
@@ -167,6 +180,31 @@
 
   // ---------- dialog ----------
 
+  // Freeze the page behind the dialog. A fixed body is what stops the background scrolling on iOS Safari,
+  // where overflow: hidden on the body alone is ignored. Offsetting it by the scroll position keeps it in place.
+  function lockScroll() {
+    if (locked) return;
+    locked = true;
+    savedY = window.scrollY;
+    var body = document.body.style;
+    body.position = "fixed";
+    body.top = -savedY + "px";
+    body.left = "0";
+    body.right = "0";
+    body.width = "100%";
+    document.documentElement.style.overflow = "hidden";
+  }
+
+  // Runs once per open, however many close paths fire.
+  function unlockScroll() {
+    if (!locked) return;
+    locked = false;
+    var body = document.body.style;
+    body.position = body.top = body.left = body.right = body.width = "";
+    document.documentElement.style.overflow = "";
+    window.scrollTo(0, savedY);
+  }
+
   function openDialog(row, button) {
     opener = button;
     dialogBody.replaceChildren();
@@ -192,14 +230,19 @@
       list[1].forEach(function (item) { ul.appendChild(el("li", null, item)); });
       dialogBody.appendChild(ul);
     });
+    lockScroll();
     dialog.showModal();
+    dialog.querySelector(".dialog-inner").scrollTop = 0;
   }
 
   document.getElementById("dialog-close").addEventListener("click", function () { dialog.close(); });
   // A click outside the inner box lands on the dialog element itself: treat it as a backdrop click.
   dialog.addEventListener("click", function (event) { if (event.target === dialog) dialog.close(); });
-  // Escape and Close both end here: put focus back on the row that opened the dialog.
-  dialog.addEventListener("close", function () { if (opener) opener.focus(); });
+  // Close, Escape and a backdrop tap all end here: unfreeze the page, then put focus back on the row.
+  dialog.addEventListener("close", function () {
+    unlockScroll();
+    if (opener) opener.focus({ preventScroll: true });
+  });
 
   // ---------- table ----------
 

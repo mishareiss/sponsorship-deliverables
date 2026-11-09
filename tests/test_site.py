@@ -117,3 +117,18 @@ def test_committed_docs_match_a_fresh_build(built):
     for pdf in (built.parent / "contracts").glob("*.pdf"):
         assert (docs / "contracts" / pdf.name).read_bytes() == pdf.read_bytes()
     assert (docs / ".nojekyll").exists()
+
+
+def test_dialog_locks_page_scroll_and_scrolls_itself(built):
+    page = built.read_text(encoding="utf-8")
+    script = re.search(r'<script id="app">(.*?)</script>', page, re.DOTALL)[1]
+    # Open freezes the body (the iOS-safe way); the close event is the one place that restores it.
+    assert 'body.position = "fixed"' in script and "body.top = -savedY" in script
+    assert "lockScroll();\n    dialog.showModal();" in script
+    close_handler = script[script.index('dialog.addEventListener("close"'):]
+    assert close_handler.index("unlockScroll();") < close_handler.index("});")
+    unlock = script[script.index("function unlockScroll"):script.index("dialog.addEventListener")]
+    assert "if (!locked) return;" in unlock and "window.scrollTo(0, savedY);" in unlock
+    # The dialog fits the viewport, its inner box scrolls without chaining, and phones get a bottom sheet.
+    assert "overscroll-behavior: contain" in page and "max-height: calc(100dvh - 32px)" in page
+    assert "position: sticky" in page and "env(safe-area-inset-bottom" in page
