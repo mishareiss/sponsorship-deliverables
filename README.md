@@ -159,7 +159,8 @@ python -m deliverables.eval_cli --all
 # demo page, two tabs at the top:
 #   Upload a contract (first tab): upload any PDF, "Extract deliverables" calls the API;
 #     shows the table, grounding, and a JSON download; nothing is saved to output/
-#   Sample contracts: saved output for the bundled PDFs; only "Re-run extraction" calls the API
+#   Try a sample contract: saved output for the bundled PDFs; only "Re-run extraction" calls the API
+#   Select a table row to see the contract text, conditions and sponsor obligations behind it
 pip install -e ".[demo]"
 streamlit run app.py
 
@@ -171,6 +172,7 @@ pytest
 
 ```
 app.py                     Streamlit demo page (upload tab + sample tab)
+.streamlit/config.toml     demo theme (colors, Barlow fonts)
 src/deliverables/
   schema.py                JSON schema for the extraction
   pdf_text.py              PDF to text
@@ -178,7 +180,8 @@ src/deliverables/
   cli.py                   extraction CLI
   evaluate.py              scoring against gold (pure)
   eval_cli.py              eval CLI and report
-  table.py                 JSON to table rows for the demo
+  table.py                 JSON to table rows, plus display headers and labels for the demo
+  ui.py                    Streamlit rendering for the demo (contract summary, table, row detail)
 data/contracts/            input PDFs (public filings)
 gold/                      hand-checked extractions
 output/                    extraction results; output/eval/ has eval results

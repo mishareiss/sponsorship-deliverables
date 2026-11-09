@@ -1,0 +1,25 @@
+# Demo theme: a stadium operations sheet. Calm, light, one accent (Field green).
+# Setting base = "light" with custom colors forces light mode for every viewer.
+
+[client]
+toolbarMode = "minimal"
+
+[theme]
+base = "light"
+primaryColor = "#1F6B47"              # Field: primary buttons, active tab, selected pills
+backgroundColor = "#F6F7F5"           # Paper
+secondaryBackgroundColor = "#E9EEEA"  # Panel
+textColor = "#1C2B2A"                 # Ink
+linkColor = "#1F6B47"                 # Field
+borderColor = "#CFD8D2"               # Rule
+dataframeBorderColor = "#CFD8D2"      # Rule
+dataframeHeaderTextColor = "#1C2B2A"  # Ink: the default faded header text is too light
+# st.info uses the "blue" set; make it a quiet Panel box instead of a new accent color.
+blueColor = "#1F6B47"
+blueBackgroundColor = "#E9EEEA"
+blueTextColor = "#1C2B2A"
+baseRadius = "small"
+font = "Barlow:https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap"
+headingFont = "'Barlow Semi Condensed':https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&display=swap"
+headingFontWeights = [600, 600, 600]
+headingFontSizes = ["2.25rem", "1.5rem", "1.2rem"]
